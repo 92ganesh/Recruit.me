@@ -20,4 +20,4 @@ for th in all_stars:
     #not quoite suer about this part, something to do with the op of the find_all method being a list, so go through it only via for loop
     i=i+1
 
-print( 'There are ',i,' stars on this account')
+print( 'There are',i,'stars on this account')
