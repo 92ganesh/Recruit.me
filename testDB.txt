@@ -1,0 +1,27 @@
+/* READ THIS 
+This is a testing database for Recruit.me
+Run this code in postgres 
+
+Note:- for consistency of project keep your postgres settings as
+name of Database - RecuitMe
+User name - postgres (should be by default)
+password  - postgres
+*/
+
+CREATE TABLE candidateDetails (
+	regNo integer PRIMARY KEY,
+	cName varchar NOT NULL,
+	cEmail varchar NOT NULL UNIQUE,
+	linkedIn varchar,
+	github varchar,
+	codechef varchar,
+	hackerrank varchar,
+	inviteForNextRound varchar CHECK(inviteForNextRound='YES' OR inviteForNextRound='NO') DEFAULT 'NO'
+);
+
+insert into candidateDetails values(1,'Ganesh','tp92ganeshpatra@gmail.com','ganesh-patra','92ganesh','ganesh92','92ganesh');
+insert into candidateDetails values(2,'Yash','yashnaik2406@gmail.com','yashnaik2909','YashAndonia','andonia2','yashnaik2406');
+insert into candidateDetails values(4,'Shubham','shubhammuniyal@gmail.com','shubham-muniyal-573285162','shubham12345678901','shubham_hi5','shubhammuniyal');
+insert into candidateDetails values(5,'Karan','prajapati.kn@somaiya.edu','','prajapati-kn','','prajapati_kn');
+
+select * from candidateDetails;
