@@ -17,8 +17,10 @@ copy paste this code in created .java file
 then right-click the project->build path->add external archive->select .jar file
 */
 
-
-
+/*also refer this for extra info about adding stuff into the sql via java:
+ https://stackoverflow.com/questions/14565097/sql-select-statement-with-where-clause
+ 
+*/
 
 import java.sql.*;
 
@@ -127,6 +129,10 @@ public class postgresConnection{
        return conn;
    }
    
+   
+   
+   
+   
    public void createTable(){
        PreparedStatement pst=null;
        try {
@@ -163,6 +169,10 @@ public class postgresConnection{
        }
    }
 
+   
+   
+   
+   //inserts data into candidateDetails
    public void insertDataCandidate(String tableName,int regNo, String cName,String cEmail, String linkedIn,String gitHub,String codeChef,String hackerRank){
        PreparedStatement pst=null;
        try {		
@@ -181,14 +191,80 @@ public class postgresConnection{
            System.out.println(e.getMessage());
        }
    }
+   
+   
+   
+   
+   
+   //returns in string form the data 'what_data' which is required to be extracted from table 'tablename' having p.k=regnovalue
+   public String selectCertainData(String tableName,int regNo_value,String what_data){
+	   //the PK_identifier is the value of the reg_no in the table 'tableName'(identify it by the primary key)
+	   //what_data is the data you want to extract from this. 
+	    
+	
+	    try {
+	    	PreparedStatement pst=null;
+	    	System.out.println("we made it here");
+	    	   pst=conn.prepareStatement("SELECT "+what_data+" FROM "+tableName+" WHERE regNo = ? ;");
+	    	 //cast-this ensures that the output is in varchar format.
+	    	
+	    	   pst.setInt(1, regNo_value);
+	    	   String return_value=new String(); 
+	    	   ResultSet r=(ResultSet)pst.executeQuery();
+	    	   while(r.next()){ 
+	           
+	            return_value =  r.getString(what_data);
+	    	   }
+	    	   pst.close();
+	           	return return_value;
+	        
+	           }catch (SQLException e) {
+	           System.out.println(e.getMessage());
+	           return "";
+	       }
+	   
+	   
+   }
 
-   public void selectData(String tableName){
+   
+   
+   
+   public void insertDataScraped(String tableName,int regNo) {
+	  
+	   Scraper sc=new Scraper();
+	   
+	   
+	   /* PreparedStatement pst=null;
+       try {		
+           pst=conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?);");
+           pst.setInt(1,regNo);//puts the regno in the 1st posn
+           pst.setString(2,cName);
+           pst.setString(3,cEmail);
+           pst.setString(4, linkedIn);
+           pst.setString(5,gitHub);
+           pst.setString(6,codeChef);
+           pst.setString(7,hackerRank);
+           int r=pst.executeUpdate();
+           System.out.println("Data scraped");
+           pst.close();
+       } catch (SQLException e) {
+           System.out.println(e.getMessage());
+       }
+	   
+	   */
+   }
+   
+   
+   
+   //Selects and displays all the data in the given table 
+   public void selectAllData(String tableName){
        PreparedStatement pst=null;
        try {
            pst=conn.prepareStatement("SELECT * FROM "+tableName);
            ResultSet r=(ResultSet)pst.executeQuery();
+          if(tableName=="candidateDetails") {
            while(r.next()){
-               int id = r.getInt("regno");
+               int id = r.getInt("regNo");
                String name = r.getString("cName");
                String email=r.getString("cEmail");
                String linkedIn=r.getString("linkedIn");
@@ -197,27 +273,50 @@ public class postgresConnection{
                String hackerRank=r.getString("hackerRank");
                System.out.println(id+" "+name+" "+email+" "+linkedIn+" "+gitHub+" "+codeChef+" "+hackerRank);
            }
+           
+          }
+          else if(tableName=="candidateScraped") {
+        	    while(r.next()){
+                    int reg = r.getInt("regNo");
+                    String HRstar = r.getString("hackerRankStar");
+                    String CCstar=r.getString("codeChefStar");
+                    String CCrating=r.getString("codeChefRating");
+                    System.out.println(reg+" "+HRstar+" "+CCstar+" "+CCrating);
+        	  
+          }}
+        	    else {
+        	    	System.out.println("Lol");
+        	    }
            pst.close();
        } catch (SQLException e) {
            System.out.println(e.getMessage());
        }
    }
+   
+   
+   
+   
+   
+   
+   
 
    public static void main(String[] args) {
        postgresConnection app = new postgresConnection();
        // start the connection
        app.connect();
 
-       // create table
-       app.createTable();
+       // create table test:    
+       //app.createTable();
        
-       // insert data
-       app.insertDataCandidate("candidateDetails",1,"Yash","yashnaik2406@gmail.com","yashnaik2909","YashAndonia","yash","ganesh92");
+       // insert data test for cadidateDetails:   
+       //app.insertDataCandidate("candidateDetails",1,"Yash","yashnaik2406@gmail.com","yashnaik2909","YashAndonia","yash","ganesh92");
        
 
-       // select and print data
-       app.selectData("candidateDetails");
-
+       // select all details-candidateDetails:
+       app.selectAllData("candidateDetails");
+       String x=app.selectCertainData("candidateDetails", 1, "linkedin");
+       System.out.println(x);
+       app.selectAllData("candidateScraped");
        // close the connection
        try {
            conn.close();
