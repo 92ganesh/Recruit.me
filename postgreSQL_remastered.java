@@ -132,7 +132,7 @@ public class postgresConnection{
    
    
    
-   
+   //creates the tables required for the setup
    public void createTable(){
        PreparedStatement pst=null;
        try {
@@ -172,39 +172,17 @@ public class postgresConnection{
    
    
    
-   //inserts data into candidateDetails
-   public void insertDataCandidate(String tableName,int regNo, String cName,String cEmail, String linkedIn,String gitHub,String codeChef,String hackerRank){
-       PreparedStatement pst=null;
-       try {		
-           pst=conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?);");
-           pst.setInt(1,regNo);//puts the regno in the 1st posn
-           pst.setString(2,cName);
-           pst.setString(3,cEmail);
-           pst.setString(4, linkedIn);
-           pst.setString(5,gitHub);
-           pst.setString(6,codeChef);
-           pst.setString(7,hackerRank);
-           int r=pst.executeUpdate();
-           System.out.println("Data inserted");
-           pst.close();
-       } catch (SQLException e) {
-           System.out.println(e.getMessage());
-       }
-   }
-   
-   
-   
-   
-   
+   //used to return value whenever requested- check out it's use in insertDataScraped
    //returns in string form the data 'what_data' which is required to be extracted from table 'tablename' having p.k=regnovalue
-   public String selectCertainData(String tableName,int regNo_value,String what_data){
+   public static String selectCertainData(String tableName,int regNo_value,String what_data){
 	   //the PK_identifier is the value of the reg_no in the table 'tableName'(identify it by the primary key)
 	   //what_data is the data you want to extract from this. 
 	    
 	
 	    try {
 	    	PreparedStatement pst=null;
-	    	System.out.println("we made it here");
+	    	//this is a test
+	    	//System.out.println("we made it here");
 	    	   pst=conn.prepareStatement("SELECT "+what_data+" FROM "+tableName+" WHERE regNo = ? ;");
 	    	 //cast-this ensures that the output is in varchar format.
 	    	
@@ -228,30 +206,30 @@ public class postgresConnection{
 
    
    
-   
-   public void insertDataScraped(String tableName,int regNo) {
+   //scrapes the required data from the candidateDetails table, and then adds it into the candidateScraped table
+   public static void insertDataScraped(int regNo) {
 	  
 	   Scraper sc=new Scraper();
 	   
-	   
-	   /* PreparedStatement pst=null;
+	   int cc_stars=Scraper.star_CC(selectCertainData("candidateDetails",regNo,"codechef"));
+	   int cc_rating=Scraper.rating_CC(selectCertainData("candidateDetails",regNo,"codechef"));
+	   int hr_stars=Scraper.star_HR(selectCertainData("candidateDetails",regNo,"hackerrank"));
+	  
+	    PreparedStatement pst=null;
        try {		
-           pst=conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?);");
+           pst=conn.prepareStatement("INSERT INTO candidateScraped VALUES(?,?,?,?);");
            pst.setInt(1,regNo);//puts the regno in the 1st posn
-           pst.setString(2,cName);
-           pst.setString(3,cEmail);
-           pst.setString(4, linkedIn);
-           pst.setString(5,gitHub);
-           pst.setString(6,codeChef);
-           pst.setString(7,hackerRank);
+           pst.setInt(2,hr_stars);
+           pst.setInt(3,cc_stars);
+           pst.setInt(4, cc_rating);
            int r=pst.executeUpdate();
-           System.out.println("Data scraped");
+           System.out.println("Data scraped and inserted into table!");
            pst.close();
        } catch (SQLException e) {
            System.out.println(e.getMessage());
        }
 	   
-	   */
+	  
    }
    
    
@@ -296,6 +274,32 @@ public class postgresConnection{
    
    
    
+
+   
+   //inserts data into candidateDetails, and then automatically scrapes the require information and adds it into the other table!
+   public void insertDataCandidate(String tableName,int regNo, String cName,String cEmail, String linkedIn,String gitHub,String codeChef,String hackerRank){
+       PreparedStatement pst=null;
+       try {		
+           pst=conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?,?,?,?,?,?);");
+           pst.setInt(1,regNo);//puts the regno in the 1st posn
+           pst.setString(2,cName);
+           pst.setString(3,cEmail);
+           pst.setString(4, linkedIn);
+           pst.setString(5,gitHub);
+           pst.setString(6,codeChef);
+           pst.setString(7,hackerRank);
+           int r=pst.executeUpdate();
+           System.out.println("Data inserted");
+           pst.close();
+           
+           
+           insertDataScraped(regNo);
+       } catch (SQLException e) {
+           System.out.println(e.getMessage());
+       }
+   }
+   
+   
    
    
    
@@ -306,16 +310,17 @@ public class postgresConnection{
        app.connect();
 
        // create table test:    
-       //app.createTable();
+       app.createTable();
        
-       // insert data test for cadidateDetails:   
-       //app.insertDataCandidate("candidateDetails",1,"Yash","yashnaik2406@gmail.com","yashnaik2909","YashAndonia","yash","ganesh92");
+       // insert data test for cadidateDetails(String tableName,int regNo, String cName,String cEmail, String linkedIn,String gitHub,String codeChef,String hackerRank):   
+       //from here itll automatically fill in the scraped info into candidateScraped as well!
+       app.insertDataCandidate("candidateDetails",1,"Yash Naik","yashnaik2406@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406");
        
 
        // select all details-candidateDetails:
+      
+
        app.selectAllData("candidateDetails");
-       String x=app.selectCertainData("candidateDetails", 1, "linkedin");
-       System.out.println(x);
        app.selectAllData("candidateScraped");
        // close the connection
        try {
