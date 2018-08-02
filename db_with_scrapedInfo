@@ -1,6 +1,10 @@
 /*this includes the original table created by ganesh, which takes the values of the user.
 It also adds the information about the user which is to be scraped from the websites of the profiles.
-This will be the base used for the java program for now.*/
+This will be the base used for the java program for now.
+(done on practice db)
+*/
+
+
 
 
 
