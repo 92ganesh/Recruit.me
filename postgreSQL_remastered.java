@@ -331,3 +331,7 @@ public class postgresConnection{
    }
 }
 
+/*select*from candidateDetails;
+select cast(hackerrank as varchar) from candidateDetails where regNo=1;
+select*from candidateScraped;
+*/
