@@ -1,43 +1,90 @@
+package attemp2;
+
 import com.jaunt.*;
 
 import java.util.*;
 
 
-public class codechef_scraper{
-    public static void main(String[]args){
-        try{
+public class Scraper{
+	
+	
+	
+	//for hackerrank stars
+	public static int star_HR(String account_name){
+		try{
+			
+			UserAgent x=new UserAgent();
+
+			x.settings.autoSaveAsHTML=true;
+			String url="http://www.hackerrank.com/"+account_name;
+			x.visit(url);
+			Elements stars= x.doc.findEvery("<svg class=badge-star>");
+			return stars.size();
+			}
+		catch(JauntException e){
+			return 0;
+		}
+		
+	}
+	
+	
+	
+	
+	//for codechef stars
+	public static int star_CC(String account_name) {
+		try{
+		UserAgent x=new UserAgent();
+
+		x.settings.autoSaveAsHTML=true;		
+		String url="http://www.codechef.com/users/"+account_name;
+        x.visit(url);
+        Elements stars=x.doc.findEvery("<div class=rating-star>").findEvery("<span>");
+        return stars.size();
+		}
+	catch(JauntException e){
+		return 0;
+	}
+		
+	}
+	
+	
+	
+	
+	//for codechef ratings
+	public static int rating_CC(String account_name) {
+		try{
+		UserAgent x=new UserAgent();
+
+		x.settings.autoSaveAsHTML=true;		
+		String url="http://www.codechef.com/users/"+account_name;
+        x.visit(url);
+        String rating=x.doc.findFirst("<div class=rating-number>").getChildText();
+        int rating_value=Integer.parseInt(rating);
+         return rating_value;
+		}
+	catch(JauntException e){
+		return 0;
+	}
+		
+	}
+	
+    
+	public static void main(String[]args){
+     
             //for hackerrank
-             UserAgent x=new UserAgent();
-            System.out.println("Enter the name of your hackerrank account");
-            Scanner sc=new Scanner(System.in);
-            String account_name=sc.next();
-            String url="http://www.hackerrank.com/"+account_name;
-            x.settings.autoSaveAsHTML=true;
-            x.visit(url);
-            Elements stars= x.doc.findEvery("<svg class=badge-star>");
-           
-           System.out.println("There are a total of "+stars.size()+" stars in the hackerrank account of the applicant");
+        	
+        	int star_hr_returned=star_HR("92ganesh");
+        	int star_cc_returned=star_CC("yash");
+        	int rating_cc_returned=rating_CC("yash");
+             
 
-//for codechef
-           System.out.println("Now, enter the codechef account of the user");
-           account_name=sc.next();
-            url="http://www.codechef.com/users/"+account_name;
-            x.visit(url);
-            stars=x.doc.findEvery("<div class=rating-star>").findEvery("<span>");
-            String rating=x.doc.findFirst("<div class=rating-number>").getChildText();
-            System.out.println("There are a total of "+stars.size()+"stars on this applicants codechef account.");
-            
-            System.out.println("Their account has a rating of "+rating+" on codechef");
+           System.out.println("There are a total of "+star_hr_returned+" stars in the hackerrank account of the applicant");
 
-            Elements fully_solved=x.doc.findEvery("<div class=content>").findEvery("<h5>");
-            
-        for(Element u:fully_solved)
-            System.out.println(u.getChildText());
-        }
-        catch(JauntException e){
-            System.err.println(e);
-            
-        }
+           System.out.println("There are a total of "+star_cc_returned+" stars on this applicants codechef account.");
+
+           System.out.println("Their account has a rating of "+rating_cc_returned+" on codechef");
+   
     }
-
+    
+    
 }
