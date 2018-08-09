@@ -8,6 +8,12 @@ User name - postgres (should be by default)
 password  - postgres
 */
 
+CREATE TABLE OTPdetails(
+	candidateEmail varchar PRIMARY KEY,
+	OTP varchar
+)
+
+
 CREATE TABLE candidateDetails (
 	regNo integer PRIMARY KEY,
 	cName varchar NOT NULL,
