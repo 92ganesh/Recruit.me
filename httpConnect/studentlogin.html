@@ -46,21 +46,22 @@
 	  
 		<script>
 			function hideInitialDetails() {
-				$("#inputOTP").hide();	$("#OTPstatus").hide();	$("#checkOTP").hide();	$("#login").hide();
+					$("#OTPsent").hide(); $("#inputOTP").hide();	$("#OTPstatus").hide();	$("#checkOTP").hide();	$("#login").hide();
 			}
 			
 			function showinputOTP()  {	$("#inputOTP").show();	}
 			function showOTPstatus() {	$("#OTPstatus").show();	}
 			function showcheckOTP()  {	$("#checkOTP").show();	}
 			function showlogin() 	 {	$("#login").show();		}
-			function OTPsent() 		 {	$("#OTPsent").show();	}
+			function showOTPsent() 		 {	$("#OTPsent").show();	}
 			
 			
 			function sendOTP() {
 				  var xhttp = new XMLHttpRequest();
 				  xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
-						OTPsent();
+						showOTPsent();
+						showcheckOTP();
 					}
 				  };
 				  var emailId = document.getElementById("inputEmail").value;
