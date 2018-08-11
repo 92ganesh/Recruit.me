@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-public class write_file{
+public class writeFile{
 
 //**********************************************************************************
 //  set details of this block acc your postgres settings
