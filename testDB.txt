@@ -1,0 +1,44 @@
+
+CREATE TABLE OTPdetails(
+	candidateEmail varchar PRIMARY KEY,
+	OTP varchar
+);
+
+
+CREATE TABLE candidateDetails (
+	regNo integer PRIMARY KEY,
+	cName varchar NOT NULL,
+	cEmail varchar NOT NULL UNIQUE,
+	linkedIn varchar,
+	github varchar,
+	codechef varchar,
+	hackerrank varchar,
+	inviteForNextRound varchar CHECK(inviteForNextRound='YES' OR inviteForNextRound='NO') DEFAULT 'NO'
+);
+
+create table codechef
+	(
+        regNo integer PRIMARY KEY,
+        rating int,
+        stars int,
+        percent_fully_solved_questions float,
+        percent_partially_solved_questions float,
+        global_rank int,
+        country_rank int
+);
+ create table hackerrank
+	(
+        regNo integer PRIMARY KEY,
+		stars int,
+        ContestRating float,
+        Percentile float,
+        Competitions int
+);	
+
+create table github
+	(
+       regNo integer PRIMARY KEY,
+       repositories int,
+       stars int,
+	followers int
+);
