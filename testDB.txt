@@ -1,18 +1,15 @@
-<<<<<<< HEAD
-
-
-
-
 =======
 /* READ THIS 
 This is a testing database for Recruit.me
 Run this code in postgres 
-
-Note:- for consistency of project keep your postgres settings as
+-Note:- for consistency of project keep your postgres settings as
 name of Database - RecuitMe
 User name - postgres (should be by default)
 password  - postgres
 */
+
+
+
 
 CREATE TABLE OTPdetails(
 	candidateEmail varchar PRIMARY KEY,
@@ -41,6 +38,8 @@ create table codechef
         global_rank int,
         country_rank int
 );
+
+
  create table hackerrank
 	(
         regNo integer PRIMARY KEY,
@@ -48,7 +47,7 @@ create table codechef
         ContestRating float,
         Percentile float,
         Competitions int
-);	
+);
 
 create table github
 	(
@@ -57,4 +56,12 @@ create table github
        stars int,
 	followers int
 );
->>>>>>> 4dfa645aa16a3b47ea56ef5fc477e8d3af7ead6d
+
+
+create table github
+	(
+       regNo integer PRIMARY KEY,
+       repositories int,
+       stars int,
+	followers int
+);
