@@ -1,4 +1,3 @@
-=======
 /* READ THIS 
 This is a testing database for Recruit.me
 Run this code in postgres 
@@ -11,57 +10,47 @@ password  - postgres
 
 
 
-CREATE TABLE OTPdetails(
-	candidateEmail varchar PRIMARY KEY,
-	OTP varchar
+CREATE TABLE otpdetails(
+	candidate_email varchar PRIMARY KEY,
+	otp varchar
 );
 
 
-CREATE TABLE candidateDetails (
-	regNo integer PRIMARY KEY,
-	cName varchar NOT NULL,
-	cEmail varchar NOT NULL UNIQUE,
-	linkedIn varchar,
-	github varchar,
-	codechef varchar,
-	hackerrank varchar,
-	inviteForNextRound varchar CHECK(inviteForNextRound='YES' OR inviteForNextRound='NO') DEFAULT 'NO'
+CREATE TABLE candidatedetails (
+	reg_no integer PRIMARY KEY,
+	cname varchar(60) NOT NULL,
+	cemail varchar(60) NOT NULL UNIQUE,
+	linkedin varchar(60),
+	github varchar(60),
+	codechef varchar(60),
+	hackerrank varchar(60),
+	invite_for_next_round varchar(60) CHECK(invite_for_next_round='YES' OR invite_for_next_round='NO') DEFAULT 'NO'
 );
 
-create table codechef
-	(
-        regNo integer PRIMARY KEY,
-        rating int,
-        stars int,
-        percent_fully_solved_questions float,
-        percent_partially_solved_questions float,
-        global_rank int,
-        country_rank int
-);
-
-
- create table hackerrank
-	(
-        regNo integer PRIMARY KEY,
-		stars int,
-        ContestRating float,
-        Percentile float,
-        Competitions int
-);
-
-create table github
-	(
-       regNo integer PRIMARY KEY,
-       repositories int,
-       stars int,
-	followers int
+create table codechef(
+	reg_no integer PRIMARY KEY,
+	rating int,
+	stars int,
+	problems_fully_solved float,
+	problems_partially_solved float,
+	global_rank int,
+	country_rank int
 );
 
 
-create table github
-	(
-       regNo integer PRIMARY KEY,
-       repositories int,
-       stars int,
+create table hackerrank(
+	reg_no integer PRIMARY KEY,
+	stars int,
+	contest_rating float,
+	percentile float,
+	competitions int
+);
+
+
+
+create table github(
+	reg_no integer PRIMARY KEY,
+	repositories int,
+	stars int,
 	followers int
 );
