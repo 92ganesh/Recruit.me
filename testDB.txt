@@ -8,13 +8,10 @@ password  - postgres
 */
 
 
-
-
 CREATE TABLE otpdetails(
 	candidate_email varchar PRIMARY KEY,
 	otp varchar
 );
-
 
 CREATE TABLE candidatedetails (
 	reg_no integer PRIMARY KEY,
@@ -37,7 +34,6 @@ create table codechef(
 	country_rank int
 );
 
-
 create table hackerrank(
 	reg_no integer PRIMARY KEY,
 	stars int,
@@ -46,14 +42,13 @@ create table hackerrank(
 	competitions_in_algorithm int
 );
 
-
-
 create table github(
 	reg_no integer PRIMARY KEY,
 	repositories int,
 	stars int,
 	followers int
 );
+
 
 
 /*optional fake data for testing purposes only*/
