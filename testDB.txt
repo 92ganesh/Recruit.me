@@ -42,8 +42,8 @@ create table hackerrank(
 	reg_no integer PRIMARY KEY,
 	stars int,
 	contest_rating float,
-	percentile float,
-	competitions int
+	percentile_in_algorithm float,
+	competitions_in_algorithm int
 );
 
 
