@@ -41,7 +41,7 @@ create table codechef(
 create table hackerrank(
 	reg_no integer PRIMARY KEY,
 	stars int,
-	contest_rating float,
+	contest_rating_in_algorithm float,
 	percentile_in_algorithm float,
 	competitions_in_algorithm int
 );
