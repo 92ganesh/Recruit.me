@@ -8,6 +8,30 @@ import com.jaunt.UserAgent;
 public class Scraper{
 	
 	
+	/**
+	 * star_HR It returns the number of stars in the hackerrank acc
+	 * gold_HR It returns the number of gold badges in the hackerrank acc
+	 * silver_HR It returns the number of gold badges in the hackerrank acc
+	 * bronze_HR It returns the number of gold badges in the hackerrank acc
+	 * contestRating_HR Was supposed to return the ratings and other values- doesn't work because it is dynamically produced web content
+	 * 
+	 * star_CC returns number of stars of the codechef account
+	 *rating_CC returns rating of the codechef account
+	 * globalRank_CC returns global rank of the codechef account
+	 * localRank_CC returns rank in the nation of the codechef account	 
+	 * partialSolved_CC returns the number of partially solved sums in codechef
+	 * fullySolved_CC returns the number of completely solved sums in codechef
+	 * 
+	 * 
+	 * repo_Git returns number of repositories in the github account
+	 * stars_Git	returns the number of stars in the github account
+	 * following_Git	returns the number of people this account follows
+	 * followers_Git	returns the number of people following this account
+	 * 
+	 * @param account_name
+	 * @return
+	 */
+	
 	//hackerrank
 	
 	
@@ -235,7 +259,7 @@ public class Scraper{
 		
 		
 
-		public static int fully_solvedCC(String account_name) {
+		public static int fullySolved_CC(String account_name) {
 			try{
 				UserAgent x=new UserAgent();
 
@@ -264,7 +288,7 @@ public class Scraper{
 		}
 		
 
-		public static int partial_solvedCC(String account_name) {
+		public static int partialSolved_CC(String account_name) {
 			try{
 				UserAgent x=new UserAgent();
 
@@ -298,7 +322,7 @@ public class Scraper{
 //github:
 
 		//no.ofrepos
-		public static int repoGit(String account_name) {
+		public static int repo_Git(String account_name) {
 			try{
 			UserAgent x=new UserAgent();
 
@@ -323,7 +347,7 @@ public class Scraper{
 		
 
 		//no. of stars
-		public static int starGit(String account_name) {
+		public static int stars_Git(String account_name) {
 			try{
 			UserAgent x=new UserAgent();
 
@@ -347,7 +371,7 @@ public class Scraper{
 
 
 		//no. of followers
-		public static int followerGit(String account_name) {
+		public static int followers_Git(String account_name) {
 			try{
 			UserAgent x=new UserAgent();
 
@@ -371,7 +395,7 @@ public class Scraper{
 
 
 		//no. of following
-		public static int followingGit(String account_name) {
+		public static int following_Git(String account_name) {
 			try{
 			UserAgent x=new UserAgent();
 
@@ -425,16 +449,16 @@ public class Scraper{
 		System.out.println("The global rank is "+globalRank_CC("yash"));
 		
 		System.out.println("The local rank is "+localRank_CC("yash"));
-		System.out.println("The fully solved is "+fully_solvedCC("yash"));
-		System.out.println("The partial solved is "+partial_solvedCC("yash"));
+		System.out.println("The fully solved is "+fullySolved_CC("yash"));
+		System.out.println("The partial solved is "+partialSolved_CC("yash"));
 		
 		
 //github
 
-		System.out.println("The repos are "+repoGit("YashAndonia"));
-		System.out.println("The stars are "+starGit("YashAndonia"));
-		System.out.println("The followers are "+followerGit("YashAndonia"));
-		System.out.println("The following are "+followingGit("YashAndonia"));
+		System.out.println("The repos are "+repo_Git("YashAndonia"));
+		System.out.println("The stars are "+stars_Git("YashAndonia"));
+		System.out.println("The followers are "+followers_Git("YashAndonia"));
+		System.out.println("The following are "+following_Git("YashAndonia"));
 	
 	}
 
