@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- Remember href. Its required in xml file too -->
+	
+	<form action="login" method="post" id="form_id">	
+		email: 	<input type="text" id="email" name="email" size="30"> <br>
+		OTP: 	<input type="text" id="OTP" name="OTP"> <br>
+		
+		<button id="button" type="button" value="send" onclick="loadDoc()">request OTP</button>
+		<input type="submit" value="Submit">
+		<p id="demo"></p>
+		
+	</form>
+	
+	<script type="text/javascript">
+		function submit_by_id() {
+			document.getElementById("form_id").submit(); //form submission
+			
+		}
+		function loadDoc() {
+			  var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			      document.getElementById("demo").innerHTML = this.responseText;
+			    }
+			  };
+			  var emailId = document.getElementById("email").value;
+			  var OTP = document.getElementById("OTP").value;
+			  var sending = "email="+emailId+"&OTP="+OTP;
+			  
+			  
+			  xhttp.open("POST", "login", true);
+			  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			  xhttp.send(sending);  
+		}
+	</script>
+</body>
+</html>

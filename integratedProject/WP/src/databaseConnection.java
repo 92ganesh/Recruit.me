@@ -37,7 +37,7 @@ public class databaseConnection {
 	// set details of this block according to your postgres settings
 	//'RecruitMe' is the DB name	
 
-     private static final String url = "jdbc:postgresql://localhost/RecruitMe";
+	   private static final String url = "jdbc:postgresql://localhost/RecruitMe";
 	   private static final String user = "postgres";
 	   private static final String password = "postgres";  
 	//**********************************************************************************
@@ -221,9 +221,7 @@ public class databaseConnection {
 	   
 	   //inserts data into candidateDetails, and then automatically scrapes the require information and adds it into the other table!
 	   public void insertDataCandidate(int regNo, String cName,String cEmail, String linkedIn,String gitHub,String codeChef,String hackerRank){
-	      connect();
-		   
-		   PreparedStatement pst=null;
+	       PreparedStatement pst=null;
 	       try {		
 	           pst=conn.prepareStatement("INSERT INTO candidatedetails VALUES(?,?,?,?,?,?,?);");
 	           pst.setInt(1,regNo);//puts the regno in the 1st posn
@@ -238,22 +236,20 @@ public class databaseConnection {
 	           pst.close();
 	           
 	           
-			   insertDataScraped(regNo);
-			   
+	           insertDataScraped(regNo);
 	       } catch (SQLException e) {
 	           System.out.println("databaseConnection:"+e.getMessage());
 	       }
 	   }
 	   
 	   
-
 	   /**
 	    * details inserts generated OTP in database
 	    * @param tableName
 	    * @param candidateEmail
 	    * @param OTP
 	    */
-		  public static void insertOTP(String tableName,String candidateEmail,String OTP){
+		public static void insertOTP(String tableName,String candidateEmail,String OTP){
 			PreparedStatement pst=null;
 
 			String s = selectOTP(tableName,candidateEmail);
@@ -324,19 +320,19 @@ public class databaseConnection {
 			PreparedStatement pst=null;
 			String command = "SELECT * FROM "+tableName+" WHERE employer_email='"+employerEmail+"'";
 			
-			  try {
-          pst=conn.prepareStatement(command);
-          ResultSet r=(ResultSet)pst.executeQuery();
-          r.next();
-          String password = r.getString("password");
-          pst.close();
-          disconnect();
-          return password;
-			  } catch (SQLException e) {
-          System.out.println("databaseConnection:"+e.getMessage());
-          disconnect();
-          return "NA";
-		  	}
+			try {
+				pst=conn.prepareStatement(command);
+				ResultSet r=(ResultSet)pst.executeQuery();
+				r.next();
+				String password = r.getString("password");
+				pst.close();
+				disconnect();
+				return password;
+			} catch (SQLException e) {
+				System.out.println("databaseConnection:"+e.getMessage());
+				disconnect();
+				return "NA";
+			}
 		}
 		 
 		public static void main(String[] args) {
