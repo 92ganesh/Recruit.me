@@ -1,7 +1,8 @@
 
 /**
 Note:-
-*You will also need to keep this file along wiht the Scraper file as well, for it to work
+* You will need to keep this file along with the Scraper file as well, to make it work properly, since it uses the various functions defined there(long with jaunt of course!)
+* 
 * you will need the postgres jdbc driver which can be downloaded from https://jdbc.postgresql.org/download.html
 * if using java 9 you can the package called postgresql-42.2.4.jar uploaded with this program
 * This code is tested with postgres 9.4 and java 9
@@ -59,48 +60,21 @@ public class databaseConnection {
 	       return conn;
 	   }
 	   
-	   //create the required table using the sql statements in testDB
-	   /*
+	  
+	   /**
+	    * create the required table using the sql statements in testDB.txt
+	    * selectCertainData	-	It returns the value of the particular accountName, which is requested from the candidateDetails table. what_data refers to the account eg.github,codechef
+	    * 
+	    * insertDataScraped	-	It Scrapes all the data from the websites and puts them in their respective tables.
+	    * 
+	    * selectAllData	-	Displays all the data stored in candidatedetails(this is only for the programmer's reference- not needed, can be commented out entirely.)
+	    * 
+	    * insertDataCandidate	-	Adds all the basic information of the candidate into the candidatedetails table
+	    * 
+	    * 
+	    */
 	   
-	   //creates the tables required for the setup
-	   public void createTable(){
-	       PreparedStatement pst=null;
-	       try {
-	           pst=conn.prepareStatement("CREATE TABLE candidateDetails (\r\n" + 
-	           		"	regNo integer PRIMARY KEY,\r\n" + 
-	           		"	cName varchar NOT NULL,\r\n" + 
-	           		"	cEmail varchar NOT NULL UNIQUE,\r\n" + 
-	           		"	linkedIn varchar,\r\n" + 
-	           		"	github varchar,\r\n" + 
-	           		"	codechef varchar,\r\n" + 
-	           		"	hackerrank varchar,\r\n" + 
-	           		"	inviteForNextRound varchar CHECK(inviteForNextRound='YES' OR inviteForNextRound='NO') DEFAULT 'NO'\r\n" + 
-	           		");");
-	           int r=pst.executeUpdate();
-	           
-	           pst=conn.prepareStatement("\r\n" + 
-	           		"CREATE TABLE candidateScraped (\r\n" + 
-	           		"	regNo integer   PRIMARY KEY ,\r\n" + 
-	           		"	hackerrankStar int,\r\n" + 
-	           		"	codechefStar int,\r\n" + 
-	           		"	codechefRating int\r\n" + 
-	           		");");
-
-	           r=pst.executeUpdate();
-	           
-	           pst=conn.prepareStatement("alter table candidateScraped add constraint connec foreign key(regNo) references candidateDetails(regno);");   
-	           
-	           r=pst.executeUpdate();
-	           
-	           System.out.println("Table created");
-	           pst.close();
-	       } catch (SQLException e) {
-	           System.out.println(e.getMessage());
-	       }
-	   }
-
-	   */
-	   
+	 
 	   
 	   //used to return value whenever requested- check out it's use in insertDataScraped
 	   //returns in string form the data 'what_data' which is required to be extracted from table 'tablename' having p.k=regnovalue
