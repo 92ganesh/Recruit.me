@@ -51,12 +51,10 @@ create table github(
 	following_ int
 );
 
+/*Adding Foreign Key relation between tables*/
 alter table github add constraint connec1 foreign key(reg_no) references candidateDetails(reg_no);
-
 alter table hackerrank add constraint connec2 foreign key(reg_no) references candidateDetails(reg_no);
-
 alter table codechef add constraint connec3 foreign key(reg_no) references candidateDetails(reg_no);
-
 
 
 
