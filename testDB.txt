@@ -1,75 +1,90 @@
 /* READ THIS 
 This is a testing database for Recruit.me
 Run this code in postgres 
-
-Note:- for consistency of project keep your postgres settings as
+-Note:- for consistency of project keep your postgres settings as
 name of Database - RecuitMe
 User name - postgres (should be by default)
 password  - postgres
 */
 
-CREATE TABLE OTPdetails(
-	candidateEmail varchar PRIMARY KEY,
-	OTP varchar
-)
 
-
-CREATE TABLE candidateDetails (
-	regNo integer PRIMARY KEY,
-	cName varchar NOT NULL,
-	cEmail varchar NOT NULL UNIQUE,
-	linkedIn varchar,
-	github varchar,
-	codechef varchar,
-	hackerrank varchar,
-	inviteForNextRound varchar CHECK(inviteForNextRound='YES' OR inviteForNextRound='NO') DEFAULT 'NO'
+CREATE TABLE otpdetails(
+	candidate_email varchar PRIMARY KEY,
+	otp varchar
 );
 
-insert into candidateDetails values(1,'Ganesh','tp92ganeshpatra@gmail.com','ganesh-patra','92ganesh','ganesh92','92ganesh');
-insert into candidateDetails values(2,'Yash','yashnaik2406@gmail.com','yashnaik2909','YashAndonia','andonia2','yashnaik2406');
-insert into candidateDetails values(4,'Shubham','shubhammuniyal@gmail.com','shubham-muniyal-573285162','shubham12345678901','shubham_hi5','shubhammuniyal');
-insert into candidateDetails values(5,'Karan','prajapati.kn@somaiya.edu','','prajapati-kn','','prajapati_kn');
+CREATE TABLE candidatedetails (
+	reg_no integer PRIMARY KEY,
+	cname varchar(60) NOT NULL,
+	cemail varchar(60) NOT NULL UNIQUE,
+	linkedin varchar(60),
+	github varchar(60),
+	codechef varchar(60),
+	hackerrank varchar(60),
+	invite_for_next_round varchar(60) CHECK(invite_for_next_round='YES' OR invite_for_next_round='NO') DEFAULT 'NO'
+);
 
-select * from candidateDetails;
+create table codechef(
+	reg_no integer PRIMARY KEY,
+	rating int,
+	stars int,
+	problems_fully_solved int,
+	problems_partially_solved int,
+	global_rank int,
+	country_rank int
+);
+
+create table hackerrank(
+	reg_no integer PRIMARY KEY,
+	stars int,
+	gold int,
+	silver int,
+	bronze int
+
+);
+
+create table github(
+	reg_no integer PRIMARY KEY,
+	repositories int,
+	stars int,
+	followers int,
+	following_ int
+);
+
+/*Adding Foreign Key relation between tables*/
+alter table github add constraint connec1 foreign key(reg_no) references candidateDetails(reg_no);
+alter table hackerrank add constraint connec2 foreign key(reg_no) references candidateDetails(reg_no);
+alter table codechef add constraint connec3 foreign key(reg_no) references candidateDetails(reg_no);
 
 
-create table codechef
-	(
-        username varchar unique not null,
-        rating int,
-        stars int,
-        percent_fully_solved_questions float,
-        percent_partially_solved_questions float,
-        global_rank int,
-        country_rank int
-	);
-    
-insert into codechef values('92ganesh',1888,3,20.5,77.7,5656,124); 
-insert into codechef values('karan',1788,3,30.5,67.7,5956,124);
+
+
+
+/*optional fake data for testing purposes only*/
+/*
+insert into candidatedetails values(1,'Ganesh','tp92ganeshpatra@gmail.com','ganesh-patra','92ganesh','ganesh92','92ganesh');
+insert into candidatedetails values(2,'Yash','yashnaik2406@gmail.com','yashnaik2909','YashAndonia','andonia2','yashnaik2406');
+insert into candidatedetails values(4,'Shubham','shubhammuniyal@gmail.com','shubham-muniyal-573285162','shubham12345678901','shubham_hi5','shubhammuniyal');
+insert into candidatedetails values(5,'Karan','prajapati.kn@somaiya.edu','karanBose','prajapati-kn','karanBose','prajapati_kn');
+select * from candidatedetails;
+
+insert into codechef values(1,1888,3,20,77,5656,124); 
+insert into codechef values(2,2000,4,51,22,3241,56); 
+insert into codechef values(3,1504,3,10,5,1451,244); 
+insert into codechef values(4,1325,2,25,30,21414,5541); 
 select * from codechef;
-   
- create table hackkerank
-	(
-        username varchar unique not null,
-        stars int,
-        ContestRating float,
-        Percentile float,
-        Competitions int
-	);
-  
-insert into hackkerank values('yash',3,20.5,77.7,5656); 
-insert into hackkerank values('maryam',10,50.5,76.7,5886); 
-select * from hackkerank;
-   
-create table github
-	(
-       username varchar unique not null,
-       repositries int,
-       stars int,
-       followes int,
-       following_ int
-	);
-    
- insert into github values('shubham',3,4,0,1);
- insert into github values('yash',100,12,22,12);
- select * from github; 
+
+insert into hackerrank values(1,3,2133.34,62.23,4); 
+insert into hackerrank values(2,2,1522.04,52.14,2);
+insert into hackerrank values(3,4,1241.42,15.12,3);
+insert into hackerrank values(4,2,205.72,73.10,1);
+insert into hackerrank values(5,3,353.97,92.32,4);
+select * from hackerrank;
+
+insert into github values(1,12,1245,234);
+insert into github values(2,4,5,0);
+insert into github values(3,32,124,20);
+insert into github values(4,14,120,2124);
+insert into github values(5,20,22,12);
+select * from github;
+*/
