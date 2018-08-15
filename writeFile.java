@@ -9,42 +9,51 @@ import java.sql.SQLException;
 
 public class writeFile 
 {
-    public static void selectData_c(String tableName,String tableName2,String tableName3)throws Exception
+	/**
+	 * details:This function will take input as table names from the database 
+	 * 			which can be name of online development platforms such as github 
+	 * 			and online competetive sites such as codechef,hackerrank,etc and 
+	 * 			also the student's scraped information will be taken from database if 
+	 * 			present inside database and will be stored in the scrappedInfo.csv file
+	 * 			based on user's registration number entered. 
+	 * 
+	 * params:tableName1,tableName2,tableName3
+	 */
+    public static void selectData_c(String tableName1,String tableName2,String tableName3)throws Exception
     
     {
+    	databaseConnection app = new databaseConnection();
+	    // start the connection		  
+	    app.connect();
     	Scanner sc=new Scanner(System.in);
         PreparedStatement pst=null;
         try 
         {
         	//for codechef account
-        
-        	System.out.print("Enter your codechef account:");
-        	String codechef_account=sc.nextLine();
-			pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName+" where username='"+codechef_account+"'");
-
+            System.out.print("Enter your registration number");
+            String registration_no=sc.nextLine();
+	    pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName1+" where reg_no="+registration_no);
             ResultSet r=(ResultSet)pst.executeQuery();
-        	//System.out.print("SELECT * FROM "+tableName+" where username="+codechef_account);
-            
             //make the FileWriter object which will extract the data from database for particular user
             //and write it inside a csv file in a tabular format 
-            FileWriter sb = new FileWriter("test.csv");
+            FileWriter sb = new FileWriter("scrappedInfo.csv");
             sb.append("codechef details");
             sb.append("\n");
             //header will be appear in a format as coded below
-            sb.append("username,rating,stars,percent_fully_solved_questions,percent_partially_solved_questions,global_rank,country_rank");    
+            sb.append("registration number,rating,stars,fully_solved_questions,partially_solved_questions,global_rank,country_rank");    
             sb.append('\n');
             
-            
-            while(r.next()){
-            	String username_c=r.getString("username");
+            while(r.next())
+            {
+            	int registration_c=r.getInt("reg_no");
                 int rating_c = r.getInt("rating");
                 String stars_c = r.getString("stars");
-                float percent_fully_solved_questions_c=r.getFloat("percent_fully_solved_questions");
-                float percent_partially_solved_questions_c=r.getFloat("percent_partially_solved_questions");
+                float percent_fully_solved_questions_c=r.getFloat("problems_fully_solved");
+                float percent_partially_solved_questions_c=r.getFloat("problems_partially_solved");
                 int global_rank_c=r.getInt("global_rank");
                 int country_rank_c=r.getInt("country_rank");
                 
-                sb.append(username_c+',');  
+                sb.append(Integer.toString(registration_c)+',');  
                 sb.append(Integer.toString(rating_c)+',');  
                 sb.append(stars_c+',');  
                 sb.append(Float.toString(percent_fully_solved_questions_c)+',');
@@ -57,97 +66,77 @@ public class writeFile
             }
 
             //for hackkerank account
-            
-            System.out.print("Enter your hackkerank account:");
-        	String hackkerank_account=sc.nextLine();
-            pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName2+" where username='"+hackkerank_account+"'");      
+            pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName2+" where reg_no="+registration_no);      
             r=(ResultSet)pst.executeQuery();
              
             sb.append("\n");
             sb.append("Hackkerank details");
             sb.append("\n");
-            
-            sb.append("username,stars,contest_ranking,percentile,competitions\n");    
+            sb.append("registration number,stars,gold,silver,bronze\n");    
            
-            
-            
-            while(r.next()){
-            	String username_h=r.getString("username");
+            while(r.next())
+            {
+            	int registration_h=r.getInt("reg_no");
                 int stars_h = r.getInt("stars");
-                float contest_rankings_h=r.getFloat("ContestRating");
-                float percentile_h=r.getFloat("percentile");
-                int Competitions_h=r.getInt("Competitions");
+                int gold_h=r.getInt("gold");
+                int silver_h=r.getInt("silver");
+                int bronze_h=r.getInt("bronze");
                 
-                sb.append(username_h);
+                sb.append(Integer.toString(registration_h));
                 sb.append(',');
                 sb.append(Integer.toString(stars_h));
-                sb.append(','+Float.toString(contest_rankings_h)+','+Float.toString(percentile_h)+','+Integer.toString(Competitions_h));
-                
+                sb.append(','+Integer.toString(gold_h)+','+Integer.toString(silver_h)+','+Integer.toString(bronze_h));
                 sb.append('\n');
-                //pw.write(sb.toString());
                 System.out.println("done!");    
             }
             
-            System.out.print("Enter your git account:");
-        	String git_account=sc.nextLine();
-            pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName3+" where username='"+git_account+"'");
+            //for Github account
+            pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName3+" where reg_no="+registration_no);
             r=(ResultSet)pst.executeQuery();
             
-           sb.append("\n");
-           sb.append("Github details");
-           sb.append("\n");
-           
-           sb.append("username,Repositries,stars,followers,following\n");    
+            sb.append("\n");
+            sb.append("Github details");
+            sb.append("\n");
+            sb.append("registration number,Repositries,stars,followers,following\n");    
          
-           while(r.next()){
-           	String username_g=r.getString("username");
-               int repositries_g = r.getInt("repositries");
+            while(r.next())
+            {
+               int registration_g=r.getInt("reg_no");
+               int repositries_g = r.getInt("repositories");
                int stars_g=r.getInt("stars");
-               int followers_g =r.getInt("followes");
+               int followers_g =r.getInt("followers");
                int following_g=r.getInt("following_");
                
-               sb.append(username_g);
+               sb.append(Integer.toString(registration_g));
                sb.append(',');
                sb.append(Integer.toString(repositries_g));
                sb.append(','+Integer.toString(stars_g)+','+Integer.toString(followers_g)+','+Integer.toString(following_g));
-               
-               sb.append('\n');
-               //pw.write(sb.toString());
-               
+               sb.append('\n');               
                System.out.println("done!");    
-           }
+            }
             //close the FileWriter object and the connection 
             sb.close();
             //sb.flush();
-            pst.close();
-            
+            pst.close(); 
         } 
         catch (SQLException e)
         {
             System.out.println(e.getMessage());
         }
     }
-
-	
+    
 	public static void main(String args[])throws Exception
 	{
-		 databaseConnection app = new databaseConnection();
-	     // start the connection
-		   
-
-	     app.connect();
-	
-	     // select and print data
-	     selectData_c("codechef","hackkerank","github");
-	
-	     // close the connection
+	    // select and print data
+	    selectData_c("codechef","hackerrank","github");
+	    // close the connection
 	    try 
-	     {
-	         databaseConnection.conn.close();
-	     } 
-	     catch (SQLException e) 
-	     {
-	         System.out.println(e.getMessage());
-	     }
+	    {
+	        databaseConnection.conn.close();
+	    } 
+	    catch (SQLException e) 
+	    {
+	    	System.out.println(e.getMessage());
+	    }
 	}
 }
