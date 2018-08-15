@@ -28,8 +28,8 @@ create table codechef(
 	reg_no integer PRIMARY KEY,
 	rating int,
 	stars int,
-	problems_fully_solved float,
-	problems_partially_solved float,
+	problems_fully_solved int,
+	problems_partially_solved int,
 	global_rank int,
 	country_rank int
 );
@@ -37,16 +37,18 @@ create table codechef(
 create table hackerrank(
 	reg_no integer PRIMARY KEY,
 	stars int,
-	contest_rating_in_algorithm float,
-	percentile_in_algorithm float,
-	competitions_in_algorithm int
+	gold int,
+	silver int,
+	bronze int
+
 );
 
 create table github(
 	reg_no integer PRIMARY KEY,
 	repositories int,
 	stars int,
-	followers int
+	followers int,
+	following int
 );
 
 
