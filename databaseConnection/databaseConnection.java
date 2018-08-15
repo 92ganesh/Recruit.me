@@ -325,18 +325,18 @@ public class databaseConnection {
 			String command = "SELECT * FROM "+tableName+" WHERE employer_email='"+employerEmail+"'";
 			
 			  try {
-          pst=conn.prepareStatement(command);
-          ResultSet r=(ResultSet)pst.executeQuery();
-          r.next();
-          String password = r.getString("password");
-          pst.close();
-          disconnect();
-          return password;
-			  } catch (SQLException e) {
-          System.out.println("databaseConnection:"+e.getMessage());
-          disconnect();
-          return "NA";
-		  	}
+				  pst=conn.prepareStatement(command);
+				  ResultSet r=(ResultSet)pst.executeQuery();
+				  r.next();
+				  String password = r.getString("password");
+				  pst.close();
+				  disconnect();
+				  return password;
+						  } catch (SQLException e) {
+				  System.out.println("databaseConnection:"+e.getMessage());
+				  disconnect();
+				  return "NA";
+		  	   }
 		}
 		 
 		public static void main(String[] args) {
