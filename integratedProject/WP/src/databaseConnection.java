@@ -32,28 +32,29 @@ import java.io.PrintWriter;
 
 
 public class databaseConnection {
-
-
-	//the connection to the database
-		
-		
-
 	//**********************************************************************************
 	// set details of this block acc your postgres settings
 	//'test' is the DB name	
 
-	private final String url = "jdbc:postgresql://localhost/RecruitMe";
-	   private final String user = "postgres";
-	   private final String password = "postgres";  
+	   private static final String url = "jdbc:postgresql://localhost/RecruitMe";
+	   private static final String user = "postgres";
+	   private static final String password = "postgres";  
 	//**********************************************************************************
 	   
 	   public static Connection conn = null;
-	   public Connection connect() {
-	       try {
+	   public static Connection connect() {
+		   try {
+	    		Class.forName("org.postgresql.Driver");
+	    	} catch (ClassNotFoundException e1) {
+	    		// TODO Auto-generated catch block
+	    		e1.printStackTrace();
+	    	}
+		   
+		   try {
 	           conn = DriverManager.getConnection(url, user, password);
-	           System.out.println("Connected to the PostgreSQL server successfully.");
+	           System.out.println("databaseConnection:"+"Connected to the PostgreSQL server successfully.");
 	       } catch (SQLException e) {
-	           System.out.println(e.getMessage());
+	           System.out.println("databaseConnection:"+e.getMessage());
 	       }
 
 	       return conn;
@@ -63,7 +64,7 @@ public class databaseConnection {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+				System.out.println("databaseConnection:"+e.getMessage());
 			}
 		}
 	   
@@ -93,7 +94,7 @@ public class databaseConnection {
 		           	return return_value;
 		        
 		           }catch (SQLException e) {
-		           System.out.println(e.getMessage());
+		           System.out.println("databaseConnection:"+e.getMessage());
 		           return "";
 		       }
 		   
@@ -142,7 +143,7 @@ public class databaseConnection {
 			   System.out.println("Data scrapedcc and inserted into table!");
 			   pst.close();
 			} catch (SQLException e) {
-			   System.out.println(e.getMessage());
+			   System.out.println("databaseConnection:"+e.getMessage());
 			}
 	       
 	       
@@ -158,7 +159,7 @@ public class databaseConnection {
 	           System.out.println("Data scrapedhr and inserted into table!");
 	           pst2.close();
 	       } catch (SQLException e) {
-	           System.out.println(e.getMessage());
+	           System.out.println("databaseConnection:"+e.getMessage());
 	       }  
 	       
 	       
@@ -175,34 +176,34 @@ public class databaseConnection {
 	           System.out.println("Data scrapedgit and inserted into table!");
 	           pst3.close();
 	       } catch (SQLException e) {
-	           System.out.println(e.getMessage());
+	           System.out.println("databaseConnection:"+e.getMessage());
 	       }
 		   
 		  
 	   }
 	   
 	   
-	   
 	   //Selects and displays all the data in the given table 
-	   public void selectAllData(String tableName){
+	   public static String selectAllData(String tableName){
+		   connect();
 	       PreparedStatement pst=null;
 	       try {
-	           pst=conn.prepareStatement("SELECT * FROM "+tableName);
-	           ResultSet r=(ResultSet)pst.executeQuery();
-	          if(tableName=="candidateDetails") {
-	           while(r.next()){
-	               int id = r.getInt("reg_no");
-	               String name = r.getString("cName");
-	               String email=r.getString("cEmail");
-	               String linkedIn=r.getString("linkedIn");
-	               String gitHub=r.getString("gitHub");
-	               String codeChef=r.getString("codeChef");
-	               String hackerRank=r.getString("hackerRank");
-	               System.out.println(id+" "+name+" "+email+" "+linkedIn+" "+gitHub+" "+codeChef+" "+hackerRank);
-	           }
+			  pst=conn.prepareStatement("SELECT * FROM "+tableName);
+			  ResultSet r=(ResultSet)pst.executeQuery();
+			  String htmlTable = "";
+			  if(tableName.compareTo("candidatedetails")==0) {
+			   while(r.next()){
+			       int reg_no = r.getInt("reg_no");
+				   String name = r.getString("cname");
+				   String email=r.getString("cemail");
+				   String linkedIn=r.getString("linkedin");
+				   String gitHub=r.getString("github");
+				   String codeChef=r.getString("codechef");
+				   String hackerRank=r.getString("hackerrank");
+				   htmlTable+="<tr><td>"+reg_no+"</td><td>"+name+"</td><td>"+email+"</td><td>"+linkedIn+"</td><td>"+gitHub+"</td><td>"+codeChef+"</td><td>"+hackerRank+"</td></tr>";
+				}
 	           
-	          }
-	          else if(tableName=="codechef") {
+	          }else if(tableName.compareTo("codechef")==0) {
 	        	    while(r.next()){
 	                    int reg = r.getInt("reg_no");
 	                    int cc_star = r.getInt("stars");
@@ -210,21 +211,20 @@ public class databaseConnection {
 	                    int cc_fullSolved=r.getInt("problems_fully_solved");
 	                    int cc_partiallySolved=r.getInt("problems_partially_solved");
 	                    System.out.println(reg+" "+cc_star+" "+cc_rating+" "+cc_fullSolved+" "+cc_partiallySolved);
-	        	  
-	          }}
-	        	    else {
-	        	    	System.out.println("Lol");
 	        	    }
+	          }else {
+	        	    	System.out.println("Lol");
+	          }
 	           pst.close();
+	           disconnect();
+	           return htmlTable;
 	       } catch (SQLException e) {
-	           System.out.println(e.getMessage());
+	           System.out.println("databaseConnection:"+e.getMessage());
+	           disconnect();
+	           return "";
 	       }
 	   }
 	   
-	   
-	   
-	   
-
 	   
 	   //inserts data into candidateDetails, and then automatically scrapes the require information and adds it into the other table!
 	   public void insertDataCandidate(int regNo, String cName,String cEmail, String linkedIn,String gitHub,String codeChef,String hackerRank){
@@ -245,12 +245,17 @@ public class databaseConnection {
 	           
 	           insertDataScraped(regNo);
 	       } catch (SQLException e) {
-	           System.out.println(e.getMessage());
+	           System.out.println("databaseConnection:"+e.getMessage());
 	       }
 	   }
 	   
 	   
-		// For OTP validation following functions are required
+	   /**
+	    * details inserts generated OTP in database
+	    * @param tableName
+	    * @param candidateEmail
+	    * @param OTP
+	    */
 		public static void insertOTP(String tableName,String candidateEmail,String OTP){
 			PreparedStatement pst=null;
 
@@ -266,27 +271,34 @@ public class databaseConnection {
 					System.out.println("Data inserted");
 					pst.close();
 				} catch (SQLException e) {
-					System.out.println(e.getMessage());
+					System.out.println("databaseConnection:"+e.getMessage());
 				}
 			}else {
 				try {
-					pst=conn.prepareStatement("UPDATE "+tableName+" SET OTP=? where candidateEmail=?");
+					pst=conn.prepareStatement("UPDATE "+tableName+" SET OTP=? where candidate_email=?");
 					pst.setString(1,OTP);
 					pst.setString(2,candidateEmail);
 					int r=pst.executeUpdate();
 					System.out.println("Data inserted");
 					pst.close();
 				} catch (SQLException e) {
-					System.out.println(e.getMessage());
+					System.out.println("databaseConnection:"+e.getMessage());
 				}
 			}
 			disconnect();
 		}
 		
+		
+		/**
+		 * details:- used for extracting password from database by LoginOTP.java and directly by studentlogin.html
+		 * @param tableName
+		 * @param candidateEmail
+		 * @return OTP corresponding to entered candidateEmail
+		 */
 		public static String selectOTP(String tableName,String candidateEmail){
 			connect();
 			PreparedStatement pst=null;
-			String command = "SELECT * FROM "+tableName+" WHERE candidateEmail='"+candidateEmail+"'";
+			String command = "SELECT * FROM "+tableName+" WHERE candidate_email='"+candidateEmail+"'";
 			
 			try {
 				pst=conn.prepareStatement(command);
@@ -296,6 +308,33 @@ public class databaseConnection {
 				pst.close();
 				disconnect();
 				return id;
+			} catch (SQLException e) {
+				System.out.println("databaseConnection:"+e.getMessage());
+				disconnect();
+				return "NA";
+			}
+		}
+		
+		
+		/**
+		 * details:- used for extracting password from database by LoginPassword.java and directly by employerlogin.html
+		 * @param tableName
+		 * @param employerEmail
+		 * @return:- password corresponding to entered employerEmail
+		 */
+		public static String selectPassword(String tableName,String employerEmail){
+			connect();
+			PreparedStatement pst=null;
+			String command = "SELECT * FROM "+tableName+" WHERE employer_email='"+employerEmail+"'";
+			
+			try {
+				pst=conn.prepareStatement(command);
+				ResultSet r=(ResultSet)pst.executeQuery();
+				r.next();
+				String password = r.getString("password");
+				pst.close();
+				disconnect();
+				return password;
 			} catch (SQLException e) {
 				System.out.println("databaseConnection:"+e.getMessage());
 				disconnect();
