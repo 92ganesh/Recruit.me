@@ -1,35 +1,16 @@
 import java.sql.*;
+
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-public class writeFile{
+import java.sql.SQLException;
 
-//**********************************************************************************
-//  set details of this block acc your postgres settings
-// 'RecuitMe";' is the DB name	
-	
-    private final String url = "jdbc:postgresql://localhost/RecuitMe";
-    private final String user = "postgres";
-    private final String password = "postgres";  
-//**********************************************************************************
+public class writeFile 
+{
+    public static void selectData_c(String tableName,String tableName2,String tableName3)throws Exception
     
-    public static Connection conn = null;
-    public Connection connect() {
-        try {
-            conn = DriverManager.getConnection(url, user, password);
-            System.out.println("Connected to the PostgreSQL server successfully.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return conn;
-    }
-    
-   
-    public void selectData_c(String tableName,String tableName2,String tableName3)throws Exception
-    		
     {
     	Scanner sc=new Scanner(System.in);
         PreparedStatement pst=null;
@@ -39,7 +20,7 @@ public class writeFile{
         
         	System.out.print("Enter your codechef account:");
         	String codechef_account=sc.nextLine();
-            pst=conn.prepareStatement("SELECT * FROM "+tableName+" where username='"+codechef_account+"'");
+			pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName+" where username='"+codechef_account+"'");
 
             ResultSet r=(ResultSet)pst.executeQuery();
         	//System.out.print("SELECT * FROM "+tableName+" where username="+codechef_account);
@@ -79,7 +60,7 @@ public class writeFile{
             
             System.out.print("Enter your hackkerank account:");
         	String hackkerank_account=sc.nextLine();
-            pst=conn.prepareStatement("SELECT * FROM "+tableName2+" where username='"+hackkerank_account+"'");      
+            pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName2+" where username='"+hackkerank_account+"'");      
             r=(ResultSet)pst.executeQuery();
              
             sb.append("\n");
@@ -109,7 +90,7 @@ public class writeFile{
             
             System.out.print("Enter your git account:");
         	String git_account=sc.nextLine();
-            pst=conn.prepareStatement("SELECT * FROM "+tableName3+" where username='"+git_account+"'");
+            pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName3+" where username='"+git_account+"'");
             r=(ResultSet)pst.executeQuery();
             
            sb.append("\n");
@@ -147,21 +128,26 @@ public class writeFile{
         }
     }
 
- 
+	
+	public static void main(String args[])throws Exception
+	{
+		 databaseConnection app = new databaseConnection();
+	     // start the connection
+		   
 
-    public static void main(String[] args)throws Exception {
-        write_file app = new write_file();
-        // start the connection
-        app.connect();
-
-        // select and print data
-        app.selectData_c("codechef","hackkerank","github");
-
-        // close the connection
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+	     app.connect();
+	
+	     // select and print data
+	     selectData_c("codechef","hackkerank","github");
+	
+	     // close the connection
+	    try 
+	     {
+	         databaseConnection.conn.close();
+	     } 
+	     catch (SQLException e) 
+	     {
+	         System.out.println(e.getMessage());
+	     }
+	}
 }

@@ -8,13 +8,10 @@ password  - postgres
 */
 
 
-
-
 CREATE TABLE otpdetails(
 	candidate_email varchar PRIMARY KEY,
 	otp varchar
 );
-
 
 CREATE TABLE candidatedetails (
 	reg_no integer PRIMARY KEY,
@@ -37,7 +34,6 @@ create table codechef(
 	country_rank int
 );
 
-
 create table hackerrank(
 	reg_no integer PRIMARY KEY,
 	stars int,
@@ -46,8 +42,6 @@ create table hackerrank(
 	bronze int
 );
 
-
-
 create table github(
 	reg_no integer PRIMARY KEY,
 	repositories int,
@@ -55,3 +49,34 @@ create table github(
 	followers int,
 	following int
 );
+
+
+
+/*optional fake data for testing purposes only*/
+/*
+insert into candidatedetails values(1,'Ganesh','tp92ganeshpatra@gmail.com','ganesh-patra','92ganesh','ganesh92','92ganesh');
+insert into candidatedetails values(2,'Yash','yashnaik2406@gmail.com','yashnaik2909','YashAndonia','andonia2','yashnaik2406');
+insert into candidatedetails values(4,'Shubham','shubhammuniyal@gmail.com','shubham-muniyal-573285162','shubham12345678901','shubham_hi5','shubhammuniyal');
+insert into candidatedetails values(5,'Karan','prajapati.kn@somaiya.edu','karanBose','prajapati-kn','karanBose','prajapati_kn');
+select * from candidatedetails;
+
+insert into codechef values(1,1888,3,20,77,5656,124); 
+insert into codechef values(2,2000,4,51,22,3241,56); 
+insert into codechef values(3,1504,3,10,5,1451,244); 
+insert into codechef values(4,1325,2,25,30,21414,5541); 
+select * from codechef;
+
+insert into hackerrank values(1,3,2133.34,62.23,4); 
+insert into hackerrank values(2,2,1522.04,52.14,2);
+insert into hackerrank values(3,4,1241.42,15.12,3);
+insert into hackerrank values(4,2,205.72,73.10,1);
+insert into hackerrank values(5,3,353.97,92.32,4);
+select * from hackerrank;
+
+insert into github values(1,12,1245,234);
+insert into github values(2,4,5,0);
+insert into github values(3,32,124,20);
+insert into github values(4,14,120,2124);
+insert into github values(5,20,22,12);
+select * from github;
+*/
