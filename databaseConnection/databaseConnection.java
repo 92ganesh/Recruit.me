@@ -42,9 +42,9 @@ public class databaseConnection {
 	// set details of this block acc your postgres settings
 	//'test' is the DB name	
 
-	private final String url = "jdbc:postgresql://localhost/RecruitMe";
-	   private final String user = "postgres";
-	   private final String password = "postgres";  
+	private static final String url = "jdbc:postgresql://localhost/RecruitMe";
+	   private static final String user = "postgres";
+	   private static final String password = "postgres";  
 	//**********************************************************************************
 	   
 	   public static Connection conn = null;
@@ -262,7 +262,9 @@ public class databaseConnection {
 	   
 	   //inserts data into candidateDetails, and then automatically scrapes the require information and adds it into the other table!
 	   public void insertDataCandidate(int regNo, String cName,String cEmail, String linkedIn,String gitHub,String codeChef,String hackerRank){
-	       PreparedStatement pst=null;
+	      connect();
+		   
+		   PreparedStatement pst=null;
 	       try {		
 	           pst=conn.prepareStatement("INSERT INTO candidatedetails VALUES(?,?,?,?,?,?,?);");
 	           pst.setInt(1,regNo);//puts the regno in the 1st posn
@@ -277,7 +279,8 @@ public class databaseConnection {
 	           pst.close();
 	           
 	           
-	           insertDataScraped(regNo);
+			   insertDataScraped(regNo);
+			   
 	       } catch (SQLException e) {
 	           System.out.println(e.getMessage());
 	       }
@@ -289,20 +292,22 @@ public class databaseConnection {
 		   public static void main(String[] args) {
 		       databaseConnection app = new databaseConnection();
 		       // start the connection
-		       app.connect();
+		   //    app.connect();
 
 		       // create table test:    
 		      // app.createTable();
 		       
 		       // insert data test for cadidateDetails(String tableName,int regNo, String cName,String cEmail, String linkedIn,String gitHub,String codeChef,String hackerRank):   
 		       //from here itll automatically fill in the scraped info into candidateScraped as well!
-		       app.insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406");
+		     
+		       
+		       app.insertDataCandidate(5631,"Yash Naik","yas23456hna4s52r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406");
 		       
 
 		       // select all details-candidateDetails:
 		      
 
-		       app.selectAllData("candidateDetails");
+		    //   app.selectAllData("candidateDetails");
 		       
 		       
 		       // close the connection
