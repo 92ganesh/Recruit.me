@@ -30,10 +30,9 @@ public class writeFile
         try 
         {
         	//for codechef account
-        	System.out.print("Enter your registration number");
-        	String registration_no=sc.nextLine();
-			pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName1+" where reg_no="+registration_no);
-
+            System.out.print("Enter your registration number");
+            String registration_no=sc.nextLine();
+	    pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName1+" where reg_no="+registration_no);
             ResultSet r=(ResultSet)pst.executeQuery();
             //make the FileWriter object which will extract the data from database for particular user
             //and write it inside a csv file in a tabular format 
@@ -67,8 +66,6 @@ public class writeFile
             }
 
             //for hackkerank account
-        	System.out.println("SELECT * FROM "+tableName2+" where reg_no="+registration_no);
-
             pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName2+" where reg_no="+registration_no);      
             r=(ResultSet)pst.executeQuery();
              
@@ -97,14 +94,14 @@ public class writeFile
             pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName3+" where reg_no="+registration_no);
             r=(ResultSet)pst.executeQuery();
             
-           sb.append("\n");
-           sb.append("Github details");
-           sb.append("\n");
-           sb.append("registration number,Repositries,stars,followers,following\n");    
+            sb.append("\n");
+            sb.append("Github details");
+            sb.append("\n");
+            sb.append("registration number,Repositries,stars,followers,following\n");    
          
-           while(r.next())
-           {
-        	   int registration_g=r.getInt("reg_no");
+            while(r.next())
+            {
+               int registration_g=r.getInt("reg_no");
                int repositries_g = r.getInt("repositories");
                int stars_g=r.getInt("stars");
                int followers_g =r.getInt("followers");
@@ -116,7 +113,7 @@ public class writeFile
                sb.append(','+Integer.toString(stars_g)+','+Integer.toString(followers_g)+','+Integer.toString(following_g));
                sb.append('\n');               
                System.out.println("done!");    
-           }
+            }
             //close the FileWriter object and the connection 
             sb.close();
             //sb.flush();
