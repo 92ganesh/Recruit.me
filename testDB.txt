@@ -48,7 +48,7 @@ create table github(
 	repositories int,
 	stars int,
 	followers int,
-	following int
+	following_ int
 );
 
 
