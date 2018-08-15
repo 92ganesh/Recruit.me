@@ -31,8 +31,8 @@ public class LoginOTP extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String receivedOTP = request.getParameter("OTP");
-		
-		if(receivedOTP=="")
+		System.out.println("got it "+receivedOTP);
+		if(receivedOTP.compareTo("sendOTP")==0)
 		{
 			//generate OTP
 			String strOTP="";  
@@ -43,7 +43,7 @@ public class LoginOTP extends HttpServlet {
 			}
 			
 			// store in DB
-			databaseConnection.insertOTP("OTPdetails",email,strOTP);
+			databaseConnection.insertOTP("otpdetails",email,strOTP);
 			
 			// strOTP is generated OTP
 			// send it for verification
@@ -53,11 +53,15 @@ public class LoginOTP extends HttpServlet {
 			System.out.println("sent mail");
 		}else {
 			/// get OTP from database and compare
-			String getOTP=databaseConnection.selectOTP("OTPdetails",email);
+			System.out.println("in check");
+			String getOTP=databaseConnection.selectOTP("otpdetails",email);
 			if(getOTP.compareTo(receivedOTP)==0)
-				System.out.println("CORRECT");
-			else
+			{	System.out.println("CORRECT");
+				response.addHeader("OPTstatus","RIGHT");
+			}else {
 				System.out.println("WRONG");
+				response.addHeader("OPTstatus","WRONG");
+			}
 			
 		}
 	}

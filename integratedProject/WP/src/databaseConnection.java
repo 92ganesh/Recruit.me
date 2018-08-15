@@ -1,7 +1,7 @@
 
 /**
 Note:-
-*You will also need to keep this file along wiht the Scraper file as well, for it to work
+*You will also need to keep this file along with the Scraper file as well, for it to work
 * you will need the postgres jdbc driver which can be downloaded from https://jdbc.postgresql.org/download.html
 * if using java 9 you can the package called postgresql-42.2.4.jar uploaded with this program
 * This code is tested with postgres 9.4 and java 9
@@ -16,6 +16,7 @@ then click next -> finish
 then right-click on project->new->class->give class name as postgresConnection 
 copy paste this code in created .java file
 then right-click the project->build path->add external archive->select .jar file
+add jar files to Apache lib too.
 */
 
 /*also refer this for extra info about adding stuff into the sql via java:
@@ -33,8 +34,8 @@ import java.io.PrintWriter;
 
 public class databaseConnection {
 	//**********************************************************************************
-	// set details of this block acc your postgres settings
-	//'test' is the DB name	
+	// set details of this block according to your postgres settings
+	//'RecruitMe' is the DB name	
 
 	   private static final String url = "jdbc:postgresql://localhost/RecruitMe";
 	   private static final String user = "postgres";
@@ -46,7 +47,6 @@ public class databaseConnection {
 		   try {
 	    		Class.forName("org.postgresql.Driver");
 	    	} catch (ClassNotFoundException e1) {
-	    		// TODO Auto-generated catch block
 	    		e1.printStackTrace();
 	    	}
 		   
@@ -69,46 +69,39 @@ public class databaseConnection {
 		}
 	   
 	   
-	   //used to return value whenever requested- check out it's use in insertDataScraped
-	   //returns in string form the data 'what_data' which is required to be extracted from table 'tablename' having p.k=regnovalue
+	   /**
+	    * details used to return value whenever requested- check out it's use in insertDataScraped
+	    * @param tableName
+	    * @param regNo_value
+	    * @param what_data (what_data is the data you want to extract from this.)
+	    * @return returns in string form the data 'what_data' which is required to be extracted from table 'tablename' having p.k=regnovalue
+	    */
 	   public static String selectCertainData(String tableName,int regNo_value,String what_data){
 		   //the PK_identifier is the value of the reg_no in the table 'tableName'(identify it by the primary key)
-		   //what_data is the data you want to extract from this. 
-		    
-		
 		    try {
-		    	PreparedStatement pst=null;
-		    	//this is a test
-		    	//System.out.println("we made it here");
-		    	   pst=conn.prepareStatement("SELECT "+what_data+" FROM "+tableName+" WHERE reg_no = ? ;");
-		    	 //cast-this ensures that the output is in varchar format.
-		    	
-		    	   pst.setInt(1, regNo_value);
-		    	   String return_value=new String(); 
-		    	   ResultSet r=(ResultSet)pst.executeQuery();
-		    	   while(r.next()){ 
-		           
-		            return_value =  r.getString(what_data);
-		    	   }
-		    	   pst.close();
-		           	return return_value;
-		        
-		           }catch (SQLException e) {
-		           System.out.println("databaseConnection:"+e.getMessage());
-		           return "";
-		       }
-		   
-		   
-	   }
+	    	   PreparedStatement pst=null;
+	    	   pst=conn.prepareStatement("SELECT "+what_data+" FROM "+tableName+" WHERE reg_no = ? ;");
+	    	 
+	    	   pst.setInt(1, regNo_value);
+	    	   String return_value=new String(); 
+	    	   ResultSet r=(ResultSet)pst.executeQuery();
+	    	   while(r.next()){ 
+	           
+	            return_value =  r.getString(what_data);
+	    	   }
+	    	   pst.close();
+	           	return return_value;
+	        
+	           }catch (SQLException e) {
+	           System.out.println("databaseConnection:"+e.getMessage());
+	           return "";
+		    }
+		}
 
-	   
-	   
 	   
 	   //scrapes the required data from the candidateDetails table, and then adds it into the candidateScraped table
 	   public static void insertDataScraped(int regNo) {
-		  
-		   //inserting in codechef table:   
-		   
+		    //inserting in codechef table:   
 		    int cc_rating=Scraper.rating_CC(selectCertainData("candidatedetails",regNo,"codechef"));
 		    int cc_stars=Scraper.star_CC(selectCertainData("candidatedetails",regNo,"codechef"));
 		    int cc_fullySolved=Scraper.fullySolved_CC(selectCertainData("candidatedetails",regNo, "codechef"));
@@ -342,31 +335,20 @@ public class databaseConnection {
 			}
 		}
 		 
-		   public static void main(String[] args) {
-		       databaseConnection app = new databaseConnection();
-		       // start the connection
-		       app.connect();
-
-		       // create table test:    
-		      // app.createTable();
-		       
-		       // insert data test for cadidateDetails(String tableName,int regNo, String cName,String cEmail, String linkedIn,String gitHub,String codeChef,String hackerRank):   
-		       //from here itll automatically fill in the scraped info into candidateScraped as well!
-		       app.insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406");
-		       
-
-		       // select all details-candidateDetails:
-		      
-
-		       app.selectAllData("candidateDetails");
-		       
-		       
-		       // close the connection
-		       try {
-		           conn.close();
-		       } catch (SQLException e) {
-		           System.out.println(e.getMessage());
-		       }
-		   }
-
+		public static void main(String[] args) {
+			databaseConnection app = new databaseConnection();
+			// start the connection
+			app.connect();
+			app.insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406");
+			   
+			// select all details-candidateDetails:
+			app.selectAllData("candidateDetails");
+			   
+			// close the connection
+			try {
+			   conn.close();
+			} catch (SQLException e) {
+			   System.out.println(e.getMessage());
+			}
+		}
 }
