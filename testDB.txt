@@ -9,8 +9,13 @@ password  - postgres
 
 
 CREATE TABLE otpdetails(
-	candidate_email varchar PRIMARY KEY,
+	candidate_email varchar(60) PRIMARY KEY,
 	otp varchar
+);
+
+CREATE TABLE passworddetails(
+	employer_email varchar(60) PRIMARY KEY,
+	password varchar(60)
 );
 
 CREATE TABLE candidatedetails (
@@ -87,4 +92,6 @@ insert into github values(3,32,124,20);
 insert into github values(4,14,120,2124);
 insert into github values(5,20,22,12);
 select * from github;
+
+insert into passworddetails values('super@user.com','12345678');
 */

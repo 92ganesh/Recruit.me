@@ -1,0 +1,26 @@
+body{
+background-image:url("display.jpg");
+height: 100%; 
+ background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	
+}
+.container{
+ width: 1200px;
+    height: 350px;    
+   background-color:white;
+   margin-left:30px;
+}
+#box{
+	width: 250px;
+    height: 50px;   
+
+ border-color:#c5c7cc;
+
+} 
+a:link {
+    color: #0fdbe2;
+text-decoration: none;
+
+	}
