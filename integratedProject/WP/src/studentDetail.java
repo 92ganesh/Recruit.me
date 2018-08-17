@@ -32,14 +32,9 @@ public class studentDetail extends HttpServlet {
 		String hackerrank = request.getParameter("hackerrank");
 		String codechef = request.getParameter("codechef");
 		String linkedin = request.getParameter("linkedin");
-		
-		System.out.println("cname:"+cname);
-		System.out.println("sgpa:"+sgpa);
-		System.out.println("github:"+github);
-		System.out.println("hackerrank:"+hackerrank);
-		System.out.println("codechef:"+codechef);
-		System.out.println("linkedin:"+linkedin);
-		
+		String skills = request.getParameter("skills");
+		int regNo = databaseConnection.totalCandidates()+1;
+		databaseConnection.insertDataCandidate(regNo, cname, Integer.toString(regNo), linkedin, github, codechef, hackerrank, skills);
 	}
 
 }

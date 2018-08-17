@@ -123,12 +123,15 @@ button:hover {
 		<p><input id="linkedin" placeholder="linkedIn Account name..."oninput="this.className = ''"></p>
 	</div>
 	<div class="tab">Coding Skills<br>
-		<input type="checkbox" id="c" value="c"> C<br>
-		<input type="checkbox" id="c++" value="CPP" checked> C++<br>
-		<input type="checkbox" id="JAVA" value="java"> JAVA<br>
-		<input type="checkbox" id="PYTHON" value="python">PYTHON<br>
-		<input type="checkbox" id="HTML" value="html">HTML<br>
-		<input type="checkbox" id="PHP" value="php">PHP<br>
+		<input type="checkbox" name="skills" value="C"> C<br>
+		<input type="checkbox" name="skills" value="CPP" checked> C++<br>
+		<input type="checkbox" name="skills" value="JAVA"> JAVA<br>
+		<input type="checkbox" name="skills" value="PYTHON">PYTHON<br>
+		<input type="checkbox" name="skills" value="HTML">HTML<br>
+		<input type="checkbox" name="skills" value="PHP">PHP<br>
+		<input type="checkbox" name="skills" value="JAVASCRIPT">JAVASCRIPT<br>
+		<input type="checkbox" name="skills" value="PERL">PERL<br>
+		<input type="checkbox" name="skills" value="RUBY">RUBY<br>
 	</div>
 
 	<div style="overflow:auto;">
@@ -160,7 +163,21 @@ button:hover {
 	      var hackerrank =  "hackerrank="+document.getElementById("hackerrank").value;
 	      var codechef =  "codechef="+document.getElementById("codechef").value;
 	      var linkedin =  "linkedin="+document.getElementById("linkedin").value;
-	      var sending = cname+"&"+sgpa+"&"+github+"&"+hackerrank+"&"+codechef+"&"+linkedin;
+
+		  var skills = "";
+		  var skillsList = document.getElementsByName("skills");
+		  for (var i=0;i<skillsList.length;i++) {
+			  	if (skillsList[i].type == "checkbox") {
+					if (skillsList[i].checked==true) {
+					  	if (skills!="") {
+					  		skills+=", ";
+						}
+					  	skills+=skillsList[i].value;
+					}
+				}
+		  }
+
+	      var sending = cname+"&"+sgpa+"&"+github+"&"+hackerrank+"&"+codechef+"&"+linkedin+"&skills="+skills;
 
 		  xhttp.open("POST", "studentDetail", true);
 		  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
