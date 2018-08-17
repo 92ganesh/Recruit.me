@@ -7,7 +7,6 @@ User name - postgres (should be by default)
 password  - postgres
 */
 
-
 CREATE TABLE otpdetails(
 	candidate_email varchar(60) PRIMARY KEY,
 	otp varchar
