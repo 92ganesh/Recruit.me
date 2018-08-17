@@ -7,15 +7,21 @@
  * 		JAF		 - https://www.oracle.com/technetwork/java/jaf11-139815.html
  */
 
+
 import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;    
 import javax.mail.internet.*;    
 
 
-public class SendEmail{    
-	 public static void main(String[] args) {   
-		   String[] recipients = {""};	// enter valid emails only as it does not check if email exists of not
-		   SendEmail.send("123tmails@gmail.com", "12345pass",	recipients,	"Not so urgent", "text message");  // enter your details
+public class emailWithAttachment{    
+	 public static void main(String[] args)
+	 {   
+		   String[] recipients = {"shubhammuniyal@gmail.com"};	// enter valid emails only as it does not check if email exists of not
+		   SendEmail.send("123tmails@gmail.com", "12345pass",	recipients,	"This is subject part", "text message");  // enter your details
 	 }    
 	 
 	 /** details- sends mail using gmail SMTP server and javaMail API 
@@ -40,7 +46,8 @@ public class SendEmail{
 	          props.put("mail.smtp.port", "465");    
 	          //get Session   
 	          Session session = Session.getDefaultInstance(props,    
-	            new javax.mail.Authenticator() {    
+	            new javax.mail.Authenticator() 
+	          {    
 	            protected PasswordAuthentication getPasswordAuthentication() {    
 	        	   return new PasswordAuthentication(from,password);  
 	            }    
@@ -48,7 +55,7 @@ public class SendEmail{
 	          ); 
 	          
 	          
-	          //compose and send message    
+	          //compose and send message with attachment
 	          try {    
 		            MimeMessage messenger = new MimeMessage(session);
 		            
@@ -60,12 +67,38 @@ public class SendEmail{
 		      	    
 		      	    messenger.setRecipients(Message.RecipientType.TO, addresses);
 		      	  	messenger.setSubject(sub);
-		      	    messenger.setText(msg);
+		      	  	
+		      	  	//Dividing the body part of the email into 2 parts
+		      	  	//1st one contains text and 2nd contains some attachment
+			      	BodyPart messageBodyPart1 = new MimeBodyPart();  
+			        messageBodyPart1.setText("The file i sent you is attchment with email");  
+			            
+			        // create new MimeBodyPart object and set DataHandler object to this object      
+			        MimeBodyPart messageBodyPart2 = new MimeBodyPart();  
+			        
+			        //The specified file(written with exact extension) name should present in the specified directory
+			        //Almost all types of files(such as .csv,.doc.jpg,etc) can be sent using DataHandler object
+			        String filename = "C:/Users/shubham/workspace1/final/scrappedInfo.csv";  
+			        DataSource source = new FileDataSource(filename);  
+			        messageBodyPart2.setDataHandler(new DataHandler(source));  
+			        messageBodyPart2.setFileName("scrappedInfo file");//The file name can be changed before mailing it
+			           
+			           
+			        // create Multipart object and add MimeBodyPart objects to this object      
+			        Multipart multipart = new MimeMultipart();  
+			        multipart.addBodyPart(messageBodyPart1);  
+			        multipart.addBodyPart(messageBodyPart2);  
+		        
+			        // set the multipart object to the message object  
+			        messenger.setContent(multipart );  
+		      	  	
 		      	    Transport.send(messenger);
 		      	    System.out.println("mail sent successfully to:- ");
 		      	    for(String each:to)
 		      	    	System.out.println(each);
-	          } catch (MessagingException mex) {
+	          } 
+	          catch (MessagingException mex)
+	          {
 		        	System.out.println("\n--Exception handling in msgsendsample.java");
 		
 		      	    mex.printStackTrace();
@@ -117,4 +150,3 @@ public class SendEmail{
 	    		SendEmail.send(from,password,recipient,sub,msg);  // enter your details
 	    }
 }
-
