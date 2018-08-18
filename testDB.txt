@@ -25,6 +25,7 @@ CREATE TABLE candidatedetails (
 	github varchar(60),
 	codechef varchar(60),
 	hackerrank varchar(60),
+	skills varchar(500),
 	invite_for_next_round varchar(60) CHECK(invite_for_next_round='YES' OR invite_for_next_round='NO') DEFAULT 'NO'
 );
 
@@ -65,10 +66,10 @@ alter table codechef add constraint connec3 foreign key(reg_no) references candi
 
 /*optional fake data for testing purposes only*/
 /*
-insert into candidatedetails values(1,'Ganesh','tp92ganeshpatra@gmail.com','ganesh-patra','92ganesh','ganesh92','92ganesh');
-insert into candidatedetails values(2,'Yash','yashnaik2406@gmail.com','yashnaik2909','YashAndonia','andonia2','yashnaik2406');
-insert into candidatedetails values(3,'Shubham','shubhammuniyal@gmail.com','shubham-muniyal-573285162','shubham12345678901','shubham_hi5','shubhammuniyal');
-insert into candidatedetails values(4,'Karan','prajapati.kn@somaiya.edu','karanBose','prajapati-kn','karanBose','prajapati_kn');
+insert into candidatedetails values(1,'Ganesh','tp92ganeshpatra@gmail.com','ganesh-patra','92ganesh','ganesh92','92ganesh','JAVA, PERL');
+insert into candidatedetails values(2,'Yash','yashnaik2406@gmail.com','yashnaik2909','YashAndonia','andonia2','yashnaik2406','CPP, PYTHON');
+insert into candidatedetails values(3,'Shubham','shubhammuniyal@gmail.com','shubham-muniyal-573285162','shubham12345678901','shubham_hi5','shubhammuniyal','C, PHP');
+insert into candidatedetails values(4,'Karan','prajapati.kn@somaiya.edu','karanBose','prajapati-kn','karanBose','prajapati_kn','HTML, JAVASCRIPT');
 select * from candidatedetails;
 
 insert into codechef values(1,1888,3,20,77,5656,124); 
@@ -90,5 +91,5 @@ insert into github values(4,14,120,2124,150);
 select * from github;
 
 insert into passworddetails values('super@user.com','12345678');
-
+select * from passworddetails;
 */
