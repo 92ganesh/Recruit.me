@@ -10,29 +10,24 @@ import java.sql.SQLException;
 public class writeFile 
 {
 	/**
-	 * details:This function will take input as table names from the database 
-	 * 			which can be name of online development platforms such as github 
-	 * 			and online competetive sites such as codechef,hackerrank,etc and 
-	 * 			also the student's scraped information will be taken from database if 
+	 * details:This function will take input as registration number from the database 
+	 * 			and  the student's scraped information will be taken from database if 
 	 * 			present inside database and will be stored in the scrappedInfo.csv file
 	 * 			based on user's registration number entered. 
 	 * 
-	 * params:tableName1,tableName2,tableName3
+	 * params:registration_no
 	 */
-    public static void selectData_c(String tableName1,String tableName2,String tableName3)throws Exception
+    public static void createCsv(int registration_no)throws Exception
     
     {
     	databaseConnection app = new databaseConnection();
 	    // start the connection		  
-	    app.connect();
-    	Scanner sc=new Scanner(System.in);
+        app.connect();
         PreparedStatement pst=null;
         try 
         {
         	//for codechef account
-            System.out.print("Enter your registration number");
-            String registration_no=sc.nextLine();
-	    pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName1+" where reg_no="+registration_no);
+	    pst=databaseConnection.conn.prepareStatement("SELECT * FROM codechef where reg_no="+registration_no);
             ResultSet r=(ResultSet)pst.executeQuery();
             //make the FileWriter object which will extract the data from database for particular user
             //and write it inside a csv file in a tabular format 
@@ -61,12 +56,11 @@ public class writeFile
                 sb.append(Integer.toString(global_rank_c)+',');   
                 sb.append(Integer.toString(country_rank_c)+',');
                 sb.append('\n');
-                
                 System.out.println("done!");    
             }
-
+		
             //for hackkerank account
-            pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName2+" where reg_no="+registration_no);      
+            pst=databaseConnection.conn.prepareStatement("SELECT * FROM hackerrank where reg_no="+registration_no);      
             r=(ResultSet)pst.executeQuery();
              
             sb.append("\n");
@@ -91,16 +85,16 @@ public class writeFile
             }
             
             //for Github account
-            pst=databaseConnection.conn.prepareStatement("SELECT * FROM "+tableName3+" where reg_no="+registration_no);
+            pst=databaseConnection.conn.prepareStatement("SELECT * FROM github where reg_no="+registration_no);
             r=(ResultSet)pst.executeQuery();
             
-            sb.append("\n");
-            sb.append("Github details");
-            sb.append("\n");
-            sb.append("registration number,Repositries,stars,followers,following\n");    
+           sb.append("\n");
+           sb.append("Github details");
+           sb.append("\n");
+           sb.append("registration number,Repositries,stars,followers,following\n");    
          
-            while(r.next())
-            {
+           while(r.next())
+           {
                int registration_g=r.getInt("reg_no");
                int repositries_g = r.getInt("repositories");
                int stars_g=r.getInt("stars");
@@ -113,7 +107,7 @@ public class writeFile
                sb.append(','+Integer.toString(stars_g)+','+Integer.toString(followers_g)+','+Integer.toString(following_g));
                sb.append('\n');               
                System.out.println("done!");    
-            }
+           }
             //close the FileWriter object and the connection 
             sb.close();
             //sb.flush();
@@ -128,7 +122,7 @@ public class writeFile
 	public static void main(String args[])throws Exception
 	{
 	    // select and print data
-	    selectData_c("codechef","hackerrank","github");
+	    createCsv(2);
 	    // close the connection
 	    try 
 	    {
