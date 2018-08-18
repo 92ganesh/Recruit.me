@@ -105,7 +105,7 @@ button:hover {
 }
 </style>
 
-<body>
+<body onload="emailDisplayer();">
 
 <form id="regForm" action="/action_page.php" >
 	<h1>Detail Information</h1>
@@ -148,6 +148,12 @@ button:hover {
 		<span class="step"></span>
 	</div>
 </form>
+
+<!--to print the emailId which was verified before-->
+
+<p id="printEmail"></p>
+
+
 <script>
 	// sending details to the server for storing it in database
 	function sendDetails() {
@@ -259,6 +265,12 @@ button:hover {
 	  }
 	  //... and adds the "active" class on the current step:
 	  x[n].className += " active";
+	}
+
+
+	function emailDisplayer(){
+		var email=localStorage.getItem("verifiedEmail");
+		document.getElementById("printEmail").innerHTML=email;
 	}
 </script>
 
