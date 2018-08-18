@@ -342,7 +342,7 @@ public class databaseConnection {
 		public static void main(String[] args) {
 			databaseConnection app = new databaseConnection();
 			// start the connection
-			app.connect();
+		//	app.connect();
 			app.insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406");
 			   
 			// select all details-candidateDetails:
