@@ -360,7 +360,7 @@ public class databaseConnection {
 		}
 		 
 		public static void main(String[] args) {
-<<<<<<< HEAD
+
 			databaseConnection app = new databaseConnection();
 			// start the connection
 		//	app.connect();
@@ -375,8 +375,8 @@ public class databaseConnection {
 			} catch (SQLException e) {
 			   System.out.println(e.getMessage());
 			}
-=======
+
 			insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406","JAVA, CPP");
->>>>>>> 064ffca5105e93746d1c0e9ac91c7f95a803c1d1
+
 		}
 }
