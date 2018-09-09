@@ -18,20 +18,12 @@ public class LoginOTP extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String receivedOTP = request.getParameter("OTP");
-		System.out.println("got it "+receivedOTP);
+		System.out.println("LoginOTP: user entered OTP "+receivedOTP);
 		if(receivedOTP.compareTo("sendOTP")==0)
 		{
 			//generate OTP
@@ -53,13 +45,12 @@ public class LoginOTP extends HttpServlet {
 			System.out.println("sent mail");
 		}else {
 			/// get OTP from database and compare
-			System.out.println("in check");
 			String getOTP=databaseConnection.selectOTP("otpdetails",email);
 			if(getOTP.compareTo(receivedOTP)==0)
-			{	System.out.println("CORRECT");
+			{	System.out.println("LoginOTP: entered OTP is CORRECT");
 				response.addHeader("OPTstatus","RIGHT");
 			}else {
-				System.out.println("WRONG");
+				System.out.println("LoginOTP: entered OTP is WRONG");
 				response.addHeader("OPTstatus","WRONG");
 			}
 			
