@@ -4,11 +4,13 @@ height: 100%;
  background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-	
+	opacity:0.7;
 }
+	
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
+	 background-color: white;
 }
 
 /* Style the buttons inside the tab */
@@ -20,7 +22,7 @@ height: 100%;
     cursor: pointer;
     padding: 14px 16px;
     transition: 0.3s;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 /* Change background color of buttons on hover */
@@ -33,21 +35,42 @@ height: 100%;
     background-color: #ccc;
 }
 
-.container{
- width: 1200px;
-    height: 550px;    
-   background-color:white;
-   margin-left:30px;
-}
-#box{
-	width: 250px;
-    height: 50px;   
-
- border-color:#c5c7cc;
-
-} 
 a:link {
-    color: #0fdbe2;
-text-decoration: none;
+    color: BLACK;
+	text-decoration: none;
 
-	}
+}
+
+
+a:hover {
+    color: BLUE;
+}
+.container1{
+  
+    width: 1000px;
+	height:800px;
+    border: 2px solid green;
+	border-radius:20px;
+    padding: 25px;
+    margin: 25px;
+	margin-left:100px;
+    margin-top:90px;
+	background-color: WHITE;
+	opacity:0.9;
+}
+
+}
+
+.a{
+	 color: blue;
+    font-family: courier;
+    font-size: 35px;
+	 margin-top:-10px;
+}
+	
+text{
+	color: blue;
+    font-family: courier;
+    font-size: 45px;
+}
+
