@@ -46,7 +46,7 @@ a:hover {
     color: BLUE;
 }
 .container1{
-  
+    cursor: pointer; 
     width: 300px;
 	height:100px;
     border: 2px solid green;
@@ -57,7 +57,7 @@ a:hover {
 	background: linear-gradient(to right, red , yellow);
 }
 .container2{
-  
+    cursor: pointer; 
     width: 300px;
 	height:100px;
     border: 2px solid green;
@@ -69,7 +69,7 @@ a:hover {
 	background: linear-gradient(to right, red , yellow);
 	}
 	.container3{
-  
+    cursor: pointer; 
     width: 300px;
 	height:100px;
     border: 2px solid green;
