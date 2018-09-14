@@ -27,6 +27,7 @@ public class studentDetail extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cname = request.getParameter("cname");
+		String email=request.getParameter("email");//added email here
 		String sgpa = request.getParameter("sgpa");
 		String github = request.getParameter("github");
 		String hackerrank = request.getParameter("hackerrank");
@@ -34,7 +35,7 @@ public class studentDetail extends HttpServlet {
 		String linkedin = request.getParameter("linkedin");
 		String skills = request.getParameter("skills");
 		int regNo = databaseConnection.totalCandidates()+1;
-		databaseConnection.insertDataCandidate(regNo, cname, Integer.toString(regNo), linkedin, github, codechef, hackerrank, skills);
+		databaseConnection.insertDataCandidate(regNo, cname, email, linkedin, github, codechef, hackerrank, skills);
 	}
 
 }
