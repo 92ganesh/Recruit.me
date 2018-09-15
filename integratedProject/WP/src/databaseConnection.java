@@ -278,9 +278,9 @@ public class databaseConnection {
 	    * @param OTP
 	    */
 		  public static void insertOTP(String tableName,String candidateEmail,String OTP){
-			connect();
 			PreparedStatement pst=null;
 			String s = selectOTP(tableName,candidateEmail);
+			connect();
 			if(s.compareTo("NA")==0)
 			{	try {
 					pst=conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?)");
@@ -298,7 +298,7 @@ public class databaseConnection {
 					pst.setString(1,OTP);
 					pst.setString(2,candidateEmail);
 					int r=pst.executeUpdate();
-					System.out.println("Data inserted");
+					System.out.println("databaseConnection: OTP is inserted into database");
 					pst.close();
 				} catch (SQLException e) {
 					System.out.println("databaseConnection:"+e.getMessage());
