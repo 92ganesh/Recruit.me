@@ -6,6 +6,7 @@ height: 100%;
     background-size: cover;
 	
 }
+
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
@@ -20,7 +21,7 @@ height: 100%;
     cursor: pointer;
     padding: 14px 16px;
     transition: 0.3s;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 /* Change background color of buttons on hover */
@@ -34,31 +35,28 @@ height: 100%;
 }
 .container{
  width: 1200px;
-    height: 2000px;    
+    height: 800px;    
    background-color:white;
    margin-left:30px;
-   opacity:0.9;
+     opacity:0.9;
 }
 .animation1{
 	position: relative;
-	margin-top:550px;
 	animation: mymove 3s;
-	animation-fill-mode: forwards;
-	font-size:25px;
+    animation-fill-mode: forwards;
+ 
 }
 @keyframes mymove {
     from {bottom: -500px;}
     to {bottom: 20px; }
 }
 
-.imagebox{
- width: 600px;
-    height: 50px;    
+.messagebox{
+ width: 500px;
+    height: 350px;    
     padding: 50px;
- margin-left: 100PX;
-
+	
 }
-
 img
 {
 	display: block;
@@ -66,10 +64,7 @@ img
     margin-right: auto;
 	
 }
-@keyframes mymove {
-    from {bottom: -500px;}
-    to {bottom: 20px; }
-}
+
 
 #box{
 	width: 150px;
@@ -78,12 +73,7 @@ img
  border-color:#c5c7cc;
 
 }
-img
-{
-	display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
+
 #box2{
 	width: 200px;
     height: 70px;   
@@ -102,17 +92,3 @@ a:link {
 a:hover {
     color: BLUE;
 }
-img.roundimage{
-	border-radius:50%;
- border: 2px solid #00fff2;
- animation:bordercolor 10s;
- animation-iteration-count: infinite;
-}
-
-@keyframes bordercolor{
-	from{border: 2px solid #00fff2;}
-	to{ border: 5px solid#00ff8c; transform:rotateY(360deg);}
-}
-
-
-	
