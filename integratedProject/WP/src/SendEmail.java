@@ -148,7 +148,7 @@ public class SendEmail{
 				//Dividing the body part of the email into 2 parts
 				//1st one contains text and 2nd contains some attachment
 				BodyPart messageBodyPart1 = new MimeBodyPart();
-				messageBodyPart1.setText(msg);
+				messageBodyPart1.setText("The file i sent you is attchment with email");
 				// create new MimeBodyPart object and set DataHandler object to this object      
 			    MimeBodyPart messageBodyPart2 = new MimeBodyPart();  
 			        
