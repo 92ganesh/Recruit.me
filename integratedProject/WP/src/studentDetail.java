@@ -27,7 +27,7 @@ public class studentDetail extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cname = request.getParameter("cname");
-		String email=request.getParameter("email");//added email here
+		String email = request.getParameter("email");
 		String sgpa = request.getParameter("sgpa");
 		String github = request.getParameter("github");
 		String hackerrank = request.getParameter("hackerrank");

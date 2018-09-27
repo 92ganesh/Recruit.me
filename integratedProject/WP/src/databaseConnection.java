@@ -25,12 +25,6 @@ add jar files to Apache lib too.
 */
 
 import java.sql.*;
-import java.util.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-
 
 public class databaseConnection {
 	//**********************************************************************************
@@ -47,14 +41,14 @@ public class databaseConnection {
 			try {
 		    	Class.forName("org.postgresql.Driver");
 			} catch (ClassNotFoundException e1) {
-				System.out.print("databaseConnection:"); e1.printStackTrace();
+				System.out.print("databaseConnection at line "+lineNum()+":"); e1.printStackTrace();
 			}
 		   
 			try {
 		       conn = DriverManager.getConnection(url, user, password);
-		       System.out.println("databaseConnection:"+"Connected to the PostgreSQL server successfully.");
+		       System.out.println("databaseConnection at line "+lineNum()+":"+"Connected to the PostgreSQL server successfully.");
 			} catch (SQLException e) {
-		       System.out.println("databaseConnection:"+e.getMessage());
+		       System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 		    }
 	
 			return conn;
@@ -64,7 +58,7 @@ public class databaseConnection {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				System.out.println("databaseConnection:"+e.getMessage());
+				System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 			}
 		}
 	   
@@ -82,13 +76,98 @@ public class databaseConnection {
 			   total = r.getInt("count");
 			   return total;
 	       } catch (SQLException e) {
-	           System.out.println("databaseConnection:"+e.getMessage());
+	           System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 	           total=-1;
 	       }
 	       disconnect();
 	       return total;
 	   }
 	   
+	   //Selects and displays all the data in the given table 
+	   public static String selectAllData(String tableName){
+		   connect();
+	       PreparedStatement pst=null;
+	       try {
+			  pst=conn.prepareStatement("SELECT * FROM "+tableName);
+			  ResultSet r=(ResultSet)pst.executeQuery();
+			  String htmlTable = "";
+			  if(tableName.compareTo("candidatedetails")==0) {
+				  while(r.next()){
+					   int reg_no = r.getInt("reg_no");
+					   String name = r.getString("cname");
+					   String email=r.getString("cemail");
+					   String linkedIn=r.getString("linkedin");
+					   String gitHub=r.getString("github");
+					   String codeChef=r.getString("codechef");
+					   String hackerRank=r.getString("hackerrank");
+					   htmlTable+="<tr><td>"+reg_no+"</td><td>"+name+"</td><td>"+email+"</td><td>"+linkedIn+"</td><td>"+gitHub+"</td><td>"+codeChef+"</td><td>"+hackerRank+"</td>";
+					   htmlTable+= "<td><input type='checkbox' name='invite_list' value='"+reg_no+"'></td></tr>";
+				  }
+	          }else if(tableName.compareTo("codechef")==0) {
+	        	  while(r.next()){
+					   int reg_no = r.getInt("reg_no");
+					   int rating = r.getInt("rating");
+					   int stars=r.getInt("stars");
+					   int problems_fully_solved=r.getInt("problems_fully_solved");
+					   int problems_partially_solved=r.getInt("problems_partially_solved");
+					   int global_rank=r.getInt("global_rank");
+					   int country_rank=r.getInt("country_rank");
+					   
+					   pst=conn.prepareStatement("SELECT * FROM candidatedetails WHERE reg_no="+reg_no);
+					   ResultSet r2=(ResultSet)pst.executeQuery();
+					   r2.next();
+					   String name = r2.getString("cname");
+					   String email=r2.getString("cemail");
+					   String userId=r2.getString("codechef");
+					   
+					   htmlTable+="<tr><td>"+reg_no+"</td><td>"+name+"</td><td>"+email+"</td><td>"+userId+"</td><td>"+rating+"</td><td>"+stars+"</td><td>"+problems_fully_solved+"</td><td>"+problems_partially_solved+"</td><td>"+global_rank+"</td><td>"+country_rank+"</td></tr>";
+				  }
+	          }else if(tableName.compareTo("hackerrank")==0) {
+				  while(r.next()){
+					   int reg_no = r.getInt("reg_no");
+					   int stars=r.getInt("stars");
+					   int gold=r.getInt("gold");
+					   int silver=r.getInt("silver");
+					   int bronze=r.getInt("bronze");
+					   
+					   pst=conn.prepareStatement("SELECT * FROM candidatedetails WHERE reg_no="+reg_no);
+					   ResultSet r2=(ResultSet)pst.executeQuery();
+					   r2.next();
+					   String name = r2.getString("cname");
+					   String email=r2.getString("cemail");
+					   String userId=r2.getString("hackerrank");
+						  
+					   htmlTable+="<tr><td>"+reg_no+"</td><td>"+name+"</td><td>"+email+"</td><td>"+userId+"</td><td>"+stars+"</td><td>"+gold+"</td><td>"+silver+"</td><td>"+bronze+"</td></tr>";
+				  }
+	          }else if(tableName.compareTo("github")==0) {
+				  while(r.next()){
+					  int reg_no = r.getInt("reg_no");
+					   int repositories=r.getInt("repositories");
+					   int stars=r.getInt("stars");
+					   int followers=r.getInt("followers");
+					   int following_=r.getInt("following_");
+					     
+					   pst=conn.prepareStatement("SELECT * FROM candidatedetails WHERE reg_no="+reg_no);
+					   ResultSet r2=(ResultSet)pst.executeQuery();
+					   r2.next();
+					   String name = r2.getString("cname");
+					   String email=r2.getString("cemail");
+					   String userId=r2.getString("github");
+						
+					   htmlTable+="<tr><td>"+reg_no+"</td><td>"+name+"</td><td>"+email+"</td><td>"+userId+"</td><td>"+repositories+"</td><td>"+stars+"</td><td>"+followers+"</td><td>"+following_+"</td></tr>";
+				  }
+	          }else {
+	        	  System.out.println("databaseConnection at line "+lineNum()+": "+tableName+" table does not exist");   // what does it mean
+	          }
+	           pst.close();
+	           disconnect();
+	           return htmlTable;
+	       } catch (SQLException e) {
+	           System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
+	           disconnect();
+	           return "";
+	       }
+	   }
 	   
 	   
 	   /**
@@ -114,11 +193,11 @@ public class databaseConnection {
 	           	return return_value;
 	        
 	           }catch (SQLException e) {
-	           System.out.println("databaseConnection:"+e.getMessage());
+	           System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 	           return "";
 		    }
 		}
-
+	   
 	   
 	   //scrapes the required data from the candidateDetails table, and then adds it into the candidateScraped table
 	   public static void insertDataScraped(int regNo) {
@@ -129,21 +208,21 @@ public class databaseConnection {
 		    int cc_partiallySolved=Scraper.partialSolved_CC(selectCertainData("candidatedetails",regNo, "codechef"));
 		    int cc_globalRank=Scraper.globalRank_CC(selectCertainData("candidatedetails",regNo, "codechef"));
 		    int cc_localRank=Scraper.localRank_CC(selectCertainData("candidatedetails",regNo, "codechef"));
-		    System.out.println("databaseConnection: scrapped details from Codechef");
+		    System.out.println("databaseConnection at line "+lineNum()+": scrapped details from Codechef");
 		    
 			//hackerrank
 		    int hr_star=Scraper.star_HR(selectCertainData("candidatedetails",regNo,"hackerrank"));
 		    int hr_gold=Scraper.gold_HR(selectCertainData("candidatedetails",regNo,"hackerrank"));
 		    int hr_silver=Scraper.silver_HR(selectCertainData("candidatedetails",regNo,"hackerrank"));
 		    int hr_bronze=Scraper.bronze_HR(selectCertainData("candidatedetails",regNo,"hackerrank"));
-		    System.out.println("databaseConnection: scrapped details from Hackerrank");
+		    System.out.println("databaseConnection at line "+lineNum()+": scrapped details from Hackerrank");
 		    
 			//github
 		    int git_repo=Scraper.repo_Git(selectCertainData("candidatedetails",regNo,"github"));
 		    int git_star=Scraper.stars_Git(selectCertainData("candidatedetails",regNo,"github"));
 		    int git_followers=Scraper.followers_Git(selectCertainData("candidatedetails",regNo,"github"));
 		    int git_following=Scraper.following_Git(selectCertainData("candidatedetails",regNo,"github"));
-		    System.out.println("databaseConnection: scrapped details from Github");
+		    System.out.println("databaseConnection at line "+lineNum()+": scrapped details from Github");
 
 		    // Codechef
 		    PreparedStatement pst=null;
@@ -157,11 +236,11 @@ public class databaseConnection {
 			   pst.setInt(6, cc_globalRank);
 			   pst.setInt(7, cc_localRank);
 			   
-			   int r=pst.executeUpdate();
-			   System.out.println("databaseConnection: codechef details inserted into database");
+			   pst.executeUpdate();
+			   System.out.println("databaseConnection at line "+lineNum()+": codechef details inserted into database");
 			   pst.close();
 			} catch (SQLException e) {
-			   System.out.println("databaseConnection:"+e.getMessage());
+			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 			}
 	       
 			// Hackerrank
@@ -173,11 +252,11 @@ public class databaseConnection {
 	           pst2.setInt(3,hr_gold);
 	           pst2.setInt(4, hr_silver);
 	           pst2.setInt(5, hr_bronze);
-	           int r=pst2.executeUpdate();
-	           System.out.println("databaseConnection: hackerrank details inserted into database");
+	           pst2.executeUpdate();
+	           System.out.println("databaseConnection at line "+lineNum()+": hackerrank details inserted into database");
 	           pst2.close();
 	       } catch (SQLException e) {
-	           System.out.println("databaseConnection:"+e.getMessage());
+	           System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 	       }  
 	       
 	       
@@ -190,49 +269,15 @@ public class databaseConnection {
 	           pst3.setInt(3,git_star);
 	           pst3.setInt(4, git_followers);
 	           pst3.setInt(5, git_following);
-	           int r=pst3.executeUpdate();
-	           System.out.println("databaseConnection: GitHub details inserted into database");
+	           pst3.executeUpdate();
+	           System.out.println("databaseConnection at line "+lineNum()+": GitHub details inserted into database");
 		       pst3.close();
 	       } catch (SQLException e) {
-	           System.out.println("databaseConnection:"+e.getMessage());
+	           System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 	       }
 		   
 		  
 	   }
-	   
-	   
-	   //Selects and displays all the data in the given table 
-	   public static String selectAllData(String tableName){
-		   connect();
-	       PreparedStatement pst=null;
-	       try {
-			  pst=conn.prepareStatement("SELECT * FROM "+tableName);
-			  ResultSet r=(ResultSet)pst.executeQuery();
-			  String htmlTable = "";
-			  if(tableName.compareTo("candidatedetails")==0) {
-				  while(r.next()){
-					   int reg_no = r.getInt("reg_no");
-					   String name = r.getString("cname");
-					   String email=r.getString("cemail");
-					   String linkedIn=r.getString("linkedin");
-					   String gitHub=r.getString("github");
-					   String codeChef=r.getString("codechef");
-					   String hackerRank=r.getString("hackerrank");
-					   htmlTable+="<tr><td>"+reg_no+"</td><td>"+name+"</td><td>"+email+"</td><td>"+linkedIn+"</td><td>"+gitHub+"</td><td>"+codeChef+"</td><td>"+hackerRank+"</td></tr>";
-				  }
-	          }else{
-	        	  System.out.println("databaseConnection: "+tableName+" table does not exist");   // what does it mean
-	          }
-	           pst.close();
-	           disconnect();
-	           return htmlTable;
-	       } catch (SQLException e) {
-	           System.out.println("databaseConnection:"+e.getMessage());
-	           disconnect();
-	           return "";
-	       }
-	   }
-	   
 	   
 	   /**
 	    * details:- inserts data into candidateDetails table and then automatically scrapes the require information and adds it into the other tables
@@ -259,16 +304,35 @@ public class databaseConnection {
 	           pst.setString(7,hackerRank);
 	           pst.setString(8,skills);
 	           
-	           int r=pst.executeUpdate();
-	           System.out.println("databaseConnection: data inserted in candidatedetails table");
+	           pst.executeUpdate();
+	           System.out.println("databaseConnection at line "+lineNum()+": data inserted in candidatedetails table");
 	           pst.close();
 	           insertDataScraped(regNo);
 	       } catch (SQLException e) {
-	           System.out.println("databaseConnection:"+e.getMessage());
+	           System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 	       }
 	       disconnect();
 	   }
 	   
+	   
+	   public static void updateInvitationStatus(String jointListOfRegNo){
+		    String listOfRegNo[] = jointListOfRegNo.split(";");
+			PreparedStatement pst=null;
+			connect();
+			try {
+					for(String each:listOfRegNo) {
+						pst=conn.prepareStatement("UPDATE candidatedetails SET invite_for_next_round='YES' where reg_no=?");
+						pst.setInt(1,Integer.parseInt(each));
+						pst.executeUpdate();
+					}
+					
+					System.out.println("databaseConnection at line "+lineNum()+": updated invitation status in database");
+					pst.close();
+				} catch (SQLException e) {
+					System.out.println("databaseConnection at line "+lineNum()+": "+e.getMessage());
+			}
+			disconnect();
+		}
 	   
 
 	   /**
@@ -286,22 +350,22 @@ public class databaseConnection {
 					pst=conn.prepareStatement("INSERT INTO "+tableName+" VALUES(?,?)");
 					pst.setString(1,candidateEmail);
 					pst.setString(2,OTP);
-					int r=pst.executeUpdate();
-					System.out.println("databaseConnection: OTP is inserted into database");
+					pst.executeUpdate();
+					System.out.println("databaseConnection at line "+lineNum()+": OTP is inserted into database");
 					pst.close();
 				} catch (SQLException e) {
-					System.out.println("databaseConnection:"+e.getMessage());
+					System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 				}
 			}else{
 				try {
 					pst=conn.prepareStatement("UPDATE "+tableName+" SET OTP=? where candidate_email=?");
 					pst.setString(1,OTP);
 					pst.setString(2,candidateEmail);
-					int r=pst.executeUpdate();
-					System.out.println("databaseConnection: OTP is inserted into database");
+					pst.executeUpdate();
+					System.out.println("databaseConnection at line "+lineNum()+": OTP is inserted into database");
 					pst.close();
 				} catch (SQLException e) {
-					System.out.println("databaseConnection:"+e.getMessage());
+					System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 				}
 			}
 			disconnect();
@@ -327,7 +391,7 @@ public class databaseConnection {
 				disconnect();
 				return id;
 			} catch (SQLException e) {
-				System.out.println("databaseConnection:"+e.getMessage());
+				System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 				disconnect();
 				return "NA";
 			}
@@ -353,12 +417,16 @@ public class databaseConnection {
 				  disconnect();
 				  return password;
 			} catch (SQLException e) {
-				  System.out.println("databaseConnection:"+e.getMessage());
+				  System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
 				  disconnect();
 				  return "NA";
 		  	}
 		}
 		 
+		private static int lineNum(){
+			return Thread.currentThread().getStackTrace()[2].getLineNumber();
+		}
+			
 		public static void main(String[] args) {
 			insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406","JAVA, CPP");
 		}
