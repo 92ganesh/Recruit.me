@@ -2,7 +2,7 @@
     <wb-module deploy-name="WP">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="WP_integrated"/>
-        <property name="java-output-path" value="/WP_integrated/build/classes"/>
+        <property name="context-root" value="WP"/>
+        <property name="java-output-path" value="/WP/build/classes"/>
     </wb-module>
 </project-modules>
