@@ -13,33 +13,36 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/PrintAllCandidateDetails")
 public class PrintAllCandidateDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PrintAllCandidateDetails() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
+    
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String htmlTable  = "<table style='width:100%; border: 1px solid black;border-collapse: collapse'>";
-		String tableHeader = "<tr><th>Reg No.</th><th>Name</th><th>Email</th><th>LinkedIn</th><th>GitHub</th><th>Codechef</th><th>Hackerrank</th></tr>";
-		htmlTable+=tableHeader;
-		htmlTable+= databaseConnection.selectAllData("candidatedetails");
-		htmlTable+="</table>";
-		response.addHeader("candidateDetailsTable",htmlTable);
+		String tableName = request.getParameter("tableName");
+		if(tableName.equals("candidatedetails"))
+		{	String htmlTable  = "",tableHeader = "";
+			htmlTable+=tableHeader;
+			htmlTable+= databaseConnection.selectAllData("candidatedetails");
+			response.addHeader("candidateDetailsTable",htmlTable);
+		}else if(tableName.equals("codechef"))
+		{	String tableHeader = "<tr><th>Reg No.</th><th>Name</th><th>Email</th><th>User Id</th><th>Rating</th><th>Stars</th><th>Problems Fully Solved</th><th>Problems Partial Solved</th><th>Global rank</th><th>Country rank</th></tr>";
+			String htmlTable  = "";
+			htmlTable+=tableHeader;
+			htmlTable+= databaseConnection.selectAllData("codechef");
+			response.addHeader("candidateDetailsTable",htmlTable);
+		}else if(tableName.equals("hackerrank"))
+		{	String tableHeader = "<tr><th>Reg No.</th><th>Name</th><th>Email</th><th>User Id</th><th>Stars</th><th>Gold medals</th><th>Silver medals</th><th>Bronze medals</th></tr>";
+			String htmlTable  = "";
+			htmlTable+=tableHeader;
+			htmlTable+= databaseConnection.selectAllData("hackerrank");
+			response.addHeader("candidateDetailsTable",htmlTable);
+		}else if(tableName.equals("github"))
+		{	String tableHeader = "<tr><th>Reg No.</th><th>Name</th><th>Email</th><th>User Id</th><th>Repositories</th><th>Stars</th><th>Total Followeres</th><th>Total Following</th></tr>";
+			String htmlTable  = "";
+			htmlTable+=tableHeader;
+			htmlTable+= databaseConnection.selectAllData("github");
+			response.addHeader("candidateDetailsTable",htmlTable);
+		}
 	}
 }
 

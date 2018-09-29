@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="employerscandidateHackerrank.css">
+
+  </head>
+
+	<body onload="printCandidateDetails()">
+	  	<h1 style="color: #eeff05;">Recruitme.com</h1>
+		<div class="tab">
+			<button><a href="home.html">Home</a> </button>
+			<button><a href=".html"></a>Recruiting Panel </button>
+			<button><a href="employerscandidate.html">Candidates list</a> </button>
+	
+		</div>
+		<div class="container1">
+			<h2 id="whichTable" align="center">Hackerrank Details</h2>
+			<table id="candidateDetails">
+			 	<!-- candidateDetails will be entered here by JavaScript -->
+			</table>
+		</div>
+
+		<script>
+			function printCandidateDetails(){
+		        var xhttp = new XMLHttpRequest();
+		        xhttp.onreadystatechange = function() {
+		          if (this.readyState == 4 && this.status == 200) {
+					  document.getElementById("candidateDetails").innerHTML = this.getResponseHeader("candidateDetailsTable");;
+		          }
+		      	};
+		        xhttp.open("POST", "PrintAllCandidateDetails", true);
+		        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		        
+		        var sending = "";
+		        var whichTable = document.getElementById("whichTable").innerHTML;
+		        console.log("table "+whichTable);
+		        if(whichTable=="All Handles")
+		        {	sending="tableName=candidatedetails";
+		        }else if(whichTable=="Codechef Details")
+		        {	sending="tableName=codechef";
+		        }else if(whichTable=="Hackerrank Details")
+		        {	sending="tableName=hackerrank";
+		        }else if(whichTable=="GitHub Details")
+		        {	sending="tableName=github";
+		        }
+				xhttp.send(sending);
+			}
+
+		</script>
+	</body>
+</html>
