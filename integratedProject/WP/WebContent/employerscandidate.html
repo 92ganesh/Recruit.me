@@ -4,36 +4,93 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="employerscandidate.css">
-
+	
+	
   </head>
-  	<h1 style="color: #eeff05;">Recruitme.com</h1>
-				<div class="tab">
-					<button><a href="home.html">Home</a> </button>
-					<button><a href=".html"></a>Recruiting Panel </button>
-					<button><a href="employerscandidate.html">Candidates list</a> </button>
-			
-				</div>
-				<div class="container1">
+
 	<body onload="printCandidateDetails()">
-		<div id="candidateDetails" class="container">
-			<!-- candidateDetails will be entered here by JavaScript -->
+	  	<h1 style="color: #eeff05;">Recruitme.com</h1>
+		<div class="tab">
+			<button><a href="home.html">Home</a> </button>
+			<button><a href=".html"></a>Recruiting Panel </button>
+			<button><a href="employerscandidate.html">Candidates list</a> </button>
+	
+		</div>
+		<div class="container1">
+			<h2 id="whichTable" align="center">All Handles</h2>
+			<table id="candidateDetails">
+			 	<!-- candidateDetails will be entered here by JavaScript -->
+			</table>
+			
+			<input type="button" value="select" onclick="selectForNextRound()">
+			<input type="button" value="invite" onclick="sendInvitation()">
 		</div>
 
 		<script>
+			function selectForNextRound(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if(this.readystate == 4 && this.status == 200) {
+						// what to display after sending
+					}
+				}
+				xhttp.open("POST","Invitation",true);
+				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				
+				var sending = "inviteType=selectForNextRound&checkList=";
+				var checkList = document.getElementsByName("invite_list");
+				for (i = 0; i < checkList.length; i++) {
+					if(checkList[i].checked == true) {
+						sending+=checkList[i].value+";";
+					}
+				}
+				xhttp.send(sending);
+			}
+		
+			function sendInvitation(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if(this.readystate == 4 && this.status == 200) {
+						// what to display after sending
+					}
+				}
+				xhttp.open("POST","Invitation",true);
+				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				
+				var sending = "inviteType=sendInvitation";
+				xhttp.send(sending);
+			}
+		
 			function printCandidateDetails(){
 		        var xhttp = new XMLHttpRequest();
 		        xhttp.onreadystatechange = function() {
 		          if (this.readyState == 4 && this.status == 200) {
-					  document.getElementById("candidateDetails").innerHTML = this.getResponseHeader("candidateDetailsTable");;
+		        	  var content = "<tr><th>Reg No.</th><th>Name</th><th>Email</th><th>LinkedIn</th>";
+		        	  content+="<th><a href='employerscandidateGithub.html'>GitHub</a></th>";
+		        	  content+="<th><a href='employerscandidateCodechef.html'>Codechef</a></th>";
+		        	  content+="<th><a href='employerscandidateHackerrank.html'>Hackerrank</a></th>";
+		        	  content+="<th>Invite</th></tr>";
+				      content += this.getResponseHeader("candidateDetailsTable");
+					  document.getElementById("candidateDetails").innerHTML = content;
 		          }
 		      	};
 		        xhttp.open("POST", "PrintAllCandidateDetails", true);
 		        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		        xhttp.send("");
-				//var table = '<table style="width:100%; border: 1px solid black;border-collapse: collapse"><tr><th>Name</th><th>money</th><th>price</th></tr>'
+		        
+		        var sending = "";
+		        var whichTable = document.getElementById("whichTable").innerHTML;
+		        if(whichTable=="All Handles")
+		        {	sending="tableName=candidatedetails";
+		        }else if(whichTable=="Codechef Details")
+		        {	sending="tableName=codechef";
+		        }else if(whichTable=="Hackerrank Details")
+		        {	sending="tableName=hackerrank";
+		        }else if(whichTable=="GitHub Details")
+		        {	sending="tableName=github";
+		        }
+				xhttp.send(sending);
 			}
 
 		</script>
-	</div>
 	</body>
 </html>
