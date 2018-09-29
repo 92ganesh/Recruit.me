@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,10 +21,16 @@ public class Invitation extends HttpServlet {
 		if(inviteType.equals("selectForNextRound")) {
 			databaseConnection.updateInvitationStatus(checkList);
 		}else if(inviteType.equals("sendInvitation")) {
-			System.out.println("jhalla");
+			String[] selectedCandidates = databaseConnection.getSelectedCandidates();	
+			String[] namesList = selectedCandidates[0].split(";");
+			String[] emailsList = selectedCandidates[1].split(";");
+					
+			for(int i=0;i<namesList.length;i++) {
+				String sub = "Invitation for next round";
+				String msg = "Congratulation!! "+ namesList[i] +"\nyou have been invited for next round of interview";
+				SendEmail.send("123tmails@gmail.com", "12345pass", emailsList[i] , sub, msg);
+			}
+			System.out.println("Invitation: sent invitation to all selected candidates");			
 		}
-		
-		
 	}
-
 }
