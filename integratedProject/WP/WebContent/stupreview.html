@@ -6,6 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <style>
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 25px;
+  font-family: Raleway;
+  font-weight: bold;
+  color: #070707;
+  border: 1px solid #aaaaaa;
+}
 body{
 background-image:url("display.jpg");
 height: 100%;
@@ -73,7 +82,9 @@ $(document).ready(function(){
 <body >
 <h1 >Thanks for using our Service! Good Luck!</h1>
 
-
+<form action="home.html" method="GET">
+	<input type="submit" value="Click here to go back home!">
+</form>
 
 <script>
     function printCandidateDetails(){
