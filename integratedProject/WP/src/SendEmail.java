@@ -234,5 +234,6 @@ public class SendEmail{
 	    		String[] recipient = {to};
 	    		SendEmail.send(from,password,recipient,sub,msg);  // enter your details
 	    }
+	
 }
 
