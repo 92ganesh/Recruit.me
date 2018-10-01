@@ -36,6 +36,16 @@ public class studentDetail extends HttpServlet {
 		String skills = request.getParameter("skills");
 		int regNo = databaseConnection.totalCandidates()+1;
 		databaseConnection.insertDataCandidate(regNo, cname, email, linkedin, github, codechef, hackerrank, skills);
+		
+		try 
+		{
+			writeFile.createCsv(regNo);
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    SendEmail.sendWithAttachment("123tmails@gmail.com", "12345pass", email,	"From recruit.Me team", "Summary of your contributions. please see the attached file",("scrappedInfo"+regNo+".csv"));
 	}
 
 }
