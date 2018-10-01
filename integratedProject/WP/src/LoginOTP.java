@@ -6,7 +6,6 @@ import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,10 +23,6 @@ public class LoginOTP extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String receivedOTP = request.getParameter("OTP");
-		
-		
-		
-		
 		System.out.println("LoginOTP: user entered OTP "+receivedOTP);
 		if(receivedOTP.compareTo("sendOTP")==0)
 		{
@@ -54,11 +49,6 @@ public class LoginOTP extends HttpServlet {
 			if(getOTP.compareTo(receivedOTP)==0)
 			{	System.out.println("LoginOTP: entered OTP is CORRECT");
 				response.addHeader("OPTstatus","RIGHT");
-
-				Cookie sessionManager= new Cookie("emailId",email);
-				sessionManager.setMaxAge(60*60);
-				response.addCookie(sessionManager);
-				
 			}else {
 				System.out.println("LoginOTP: entered OTP is WRONG");
 				response.addHeader("OPTstatus","WRONG");
