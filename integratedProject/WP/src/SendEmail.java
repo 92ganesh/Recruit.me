@@ -30,7 +30,7 @@ public class SendEmail{
 	    * sub 		- subject of the email
 	    * msg		- body of the email
 	    */
-	    public static void send(String from,String password,String[] to,String sub,String msg){  
+	    public static void send(final String from,final String password,String[] to,String sub,String msg){  
 	          //Get properties object    
 	          Properties props = new Properties();    
 	          props.put("mail.smtp.host", "smtp.gmail.com");    
@@ -115,7 +115,7 @@ public class SendEmail{
 		* msg		- body of the email
 		* filePath  -Directory in which file to be sent is stored
 		*/
-		public static void sendWithAttachment(String from,String password,String[] to,String sub,String msg,String filePath)
+		public static void sendWithAttachment(final String from,final String password,String[] to,String sub,String msg,String filePath)
 		{
 			//Get properties object
 			Properties props = new Properties(); 
@@ -234,20 +234,6 @@ public class SendEmail{
 	    		String[] recipient = {to};
 	    		SendEmail.send(from,password,recipient,sub,msg);  // enter your details
 	    }
-		
-		//Overloaded Method 
-	    /**  details:Send the email to only one recipent 
-	     * @param from
-	     * @param password
-	     * @param to
-	     * @param sub
-	     * @param msg
-	     * @param filePath
-	     */
-	    public static void sendWithAttachment(String from,String password,String to,String sub,String msg,String filePath)
-		{  
-    		String[] recipient = {to};
-    		SendEmail.sendWithAttachment(from,password,recipient,sub,msg,filePath); 
-		}
+	
 }
 
