@@ -17,8 +17,8 @@ import javax.activation.FileDataSource;
 
 public class SendEmail{    
 	 public static void main(String[] args) {   
-		   String[] recipients = {"tp92ganeshpatra@gmail.com"};	// enter valid emails only as it does not check if email exists of not
-		  // SendEmail.send("123tmails@gmail.com", "12345pass",	recipients,	"Not so urgent", "text message");  // enter your details
+		   String[] recipients = {"sample@gmail.com"};	// enter valid emails only as it does not check if email exists of not
+		   SendEmail.send("123tmails@gmail.com", "12345pass",	recipients,	"Not so urgent", "text message");  // enter your details
 		   SendEmail.sendWithAttachment("123tmails@gmail.com", "12345pass",	recipients,	"This is subject part", "text message",Initializer.path+"scrappedInfo8"+".csv");
 	
 	 }    
