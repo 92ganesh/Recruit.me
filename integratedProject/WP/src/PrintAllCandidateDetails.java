@@ -13,12 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/PrintAllCandidateDetails")
 public class PrintAllCandidateDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tableName = request.getParameter("tableName");
+		LogManager.logger.info("Request received for table "+tableName);
 		if(tableName.equals("candidatedetails"))
 		{	String htmlTable  = "",tableHeader = "";
 			htmlTable+=tableHeader;
@@ -57,22 +58,3 @@ public class PrintAllCandidateDetails extends HttpServlet {
 	}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

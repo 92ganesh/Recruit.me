@@ -1,10 +1,6 @@
 import java.sql.*;
 
-import java.util.*;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 public class writeFile 
@@ -18,20 +14,18 @@ public class writeFile
 	 * params:registration_no
 	 */
     public static void createCsv(int registration_no)throws Exception
-    
     {
-    	databaseConnection app = new databaseConnection();
-	    // start the connection		  
-        app.connect();
+    	// start the connection		  
+    	databaseConnection.connect();
         PreparedStatement pst=null;
         try 
         {
         	//for codechef account
-	    pst=databaseConnection.conn.prepareStatement("SELECT * FROM codechef where reg_no="+registration_no);
+        	pst=databaseConnection.conn.prepareStatement("SELECT * FROM codechef where reg_no="+registration_no);
             ResultSet r=(ResultSet)pst.executeQuery();
             //make the FileWriter object which will extract the data from database for particular user
             //and write it inside a csv file in a tabular format 
-            FileWriter sb = new FileWriter("scrappedInfo"+registration_no+".csv");
+            FileWriter sb = new FileWriter(Initializer.path+"scrappedInfo"+registration_no+".csv");
             sb.append("codechef details");
             sb.append("\n");
             //header will be appear in a format as coded below
