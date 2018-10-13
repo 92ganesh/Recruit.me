@@ -234,6 +234,22 @@ public class SendEmail{
 	    		String[] recipient = {to};
 	    		SendEmail.send(from,password,recipient,sub,msg);  // enter your details
 	    }
+		
+		//Overloaded Method 
+	    /**  details:Send the email to only one recipent 
+	     * @param from
+	     * @param password
+	     * @param to
+	     * @param sub
+	     * @param msg
+	     * @param filePath
+	     */
+	    public static void sendWithAttachment(String from,String password,String to,String sub,String msg,String filePath)
+		{  
+    		String[] recipient = {to};
+    		SendEmail.sendWithAttachment(from,password,recipient,sub,msg,filePath); 
+		}
+	
 	
 }
 
