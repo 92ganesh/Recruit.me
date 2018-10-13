@@ -40,9 +40,8 @@ public class databaseConnection {
 		public static Connection connect() {
 			try {
 				Class.forName("org.postgresql.Driver");
-			} catch (ClassNotFoundException e) {
-				System.out.print("databaseConnection at line "+lineNum()+":"); e.printStackTrace();
-				LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
+			} catch (ClassNotFoundException e1) {
+				System.out.print("databaseConnection at line "+lineNum()+":"); e1.printStackTrace();
 			}
 		   
 			try {
@@ -50,7 +49,6 @@ public class databaseConnection {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+"Connected to the PostgreSQL server successfully.");
 			} catch (SQLException e) {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 			}
 	
 			return conn;
@@ -61,7 +59,6 @@ public class databaseConnection {
 				conn.close();
 			} catch (SQLException e) {
 				System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-				LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 			}
 		}
 	   
@@ -80,7 +77,6 @@ public class databaseConnection {
 			   return total;
 		   } catch (SQLException e) {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 			   total=-1;
 		   }
 		   disconnect();
@@ -170,11 +166,9 @@ public class databaseConnection {
 			  }
 			   pst.close();
 			   disconnect();
-			   LogManager.logger.info("sent requested table to client");
 			   return htmlTable;
 		   } catch (SQLException e) {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 			   disconnect();
 			   return "";
 		   }
@@ -206,10 +200,60 @@ public class databaseConnection {
 			
 			   }catch (SQLException e) {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 			   return "";
 			}
 		}
+	   
+	   
+
+	   
+	   public static int selectCountOfData(String tableName){
+		   //the PK_identifier is the value of the reg_no in the table 'tableName'(identify it by the primary key)
+			try {
+				connect();
+			   PreparedStatement pst=null;
+			   pst=conn.prepareStatement("SELECT COUNT(*) FROM "+tableName+" ;");
+			 
+			   int return_value=0;
+			   ResultSet r=(ResultSet)pst.executeQuery();
+			   while(r.next()){ 
+				   return_value =  r.getInt(1);
+			   }
+			   pst.close();
+				disconnect();
+			   	return return_value;
+		
+			   }catch (SQLException e) {
+			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
+			   return 0;
+			}
+		}
+	   
+
+	   
+	   public static int selectCountOfSelectedCandidates(){
+		   //the PK_identifier is the value of the reg_no in the table 'tableName'(identify it by the primary key)
+			try {
+				connect();
+			   PreparedStatement pst=null;
+			   pst=conn.prepareStatement("select count(*) from candidateDetails where invite_for_next_round='YES' ;");
+			 
+			   int return_value=0;
+			   ResultSet r=(ResultSet)pst.executeQuery();
+			   while(r.next()){ 
+				   return_value =  r.getInt(1);
+			   }
+			   pst.close();
+				disconnect();
+			   	return return_value;
+		
+			   }catch (SQLException e) {
+			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
+			   return 0;
+			}
+		}
+	   
+	   
 	   
 	   public static String[] getSelectedCandidates(){
 			connect();
@@ -231,7 +275,6 @@ public class databaseConnection {
 			
 			}catch (SQLException e) {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 			   String[] dummyValue = {""};
 			   disconnect();
 			   return dummyValue;
@@ -249,7 +292,6 @@ public class databaseConnection {
 			int cc_globalRank=Scraper.globalRank_CC(selectCertainData("candidatedetails",regNo, "codechef"));
 			int cc_localRank=Scraper.localRank_CC(selectCertainData("candidatedetails",regNo, "codechef"));
 			System.out.println("databaseConnection at line "+lineNum()+": scrapped details from Codechef");
-			LogManager.logger.info("scrapped details from Codechef");
 			
 			//hackerrank
 			int hr_star=Scraper.star_HR(selectCertainData("candidatedetails",regNo,"hackerrank"));
@@ -257,7 +299,6 @@ public class databaseConnection {
 			int hr_silver=Scraper.silver_HR(selectCertainData("candidatedetails",regNo,"hackerrank"));
 			int hr_bronze=Scraper.bronze_HR(selectCertainData("candidatedetails",regNo,"hackerrank"));
 			System.out.println("databaseConnection at line "+lineNum()+": scrapped details from Hackerrank");
-			LogManager.logger.info("scrapped details from Hackerrank");
 			
 			//github
 			int git_repo=Scraper.repo_Git(selectCertainData("candidatedetails",regNo,"github"));
@@ -265,7 +306,6 @@ public class databaseConnection {
 			int git_followers=Scraper.followers_Git(selectCertainData("candidatedetails",regNo,"github"));
 			int git_following=Scraper.following_Git(selectCertainData("candidatedetails",regNo,"github"));
 			System.out.println("databaseConnection at line "+lineNum()+": scrapped details from Github");
-			LogManager.logger.info("scrapped details from Github");
 
 			// Codechef
 			PreparedStatement pst=null;
@@ -281,11 +321,9 @@ public class databaseConnection {
 			   
 			   pst.executeUpdate();
 			   System.out.println("databaseConnection at line "+lineNum()+": codechef details inserted into database");
-			   LogManager.logger.info("codechef details inserted into database");
 			   pst.close();
 			} catch (SQLException e) {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 			}
 		   
 			// Hackerrank
@@ -299,11 +337,9 @@ public class databaseConnection {
 			   pst2.setInt(5, hr_bronze);
 			   pst2.executeUpdate();
 			   System.out.println("databaseConnection at line "+lineNum()+": hackerrank details inserted into database");
-			   LogManager.logger.info("hackerrank details inserted into database");
 			   pst2.close();
 		   } catch (SQLException e) {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 		   }  
 		   
 		   
@@ -318,11 +354,9 @@ public class databaseConnection {
 			   pst3.setInt(5, git_following);
 			   pst3.executeUpdate();
 			   System.out.println("databaseConnection at line "+lineNum()+": GitHub details inserted into database");
-			   LogManager.logger.info("GitHub details inserted into database");
 			   pst3.close();
 		   } catch (SQLException e) {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 		   }
 		   
 		  
@@ -355,13 +389,10 @@ public class databaseConnection {
 			   
 			   pst.executeUpdate();
 			   System.out.println("databaseConnection at line "+lineNum()+": data inserted in candidatedetails table");
-			   LogManager.logger.info("candidate details inserted in candidatedetails table");
-			   
 			   pst.close();
 			   insertDataScraped(regNo);
 		   } catch (SQLException e) {
 			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 		   }
 		   disconnect();
 	   }
@@ -382,7 +413,6 @@ public class databaseConnection {
 					pst.close();
 				} catch (SQLException e) {
 					System.out.println("databaseConnection at line "+lineNum()+": "+e.getMessage());
-					LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 			}
 			disconnect();
 		}
@@ -408,7 +438,6 @@ public class databaseConnection {
 					pst.close();
 				} catch (SQLException e) {
 					System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-					LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 				}
 			}else{
 				try {
@@ -420,7 +449,6 @@ public class databaseConnection {
 					pst.close();
 				} catch (SQLException e) {
 					System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-					LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 				}
 			}
 			disconnect();
@@ -447,7 +475,6 @@ public class databaseConnection {
 				return id;
 			} catch (SQLException e) {
 				System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-				LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 				disconnect();
 				return "NA";
 			}
@@ -474,7 +501,6 @@ public class databaseConnection {
 				  return password;
 			} catch (SQLException e) {
 				  System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-				  LogManager.logger.severe("at line "+lineNum()+":"+e.getMessage());
 				  disconnect();
 				  return "NA";
 		  	}
@@ -485,6 +511,7 @@ public class databaseConnection {
 		}
 			
 		public static void main(String[] args) {
-			insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406","JAVA, CPP");
+			//insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406","JAVA, CPP");
+			System.out.println(" "+selectCountOfSelectedCandidates());
 		}
 }

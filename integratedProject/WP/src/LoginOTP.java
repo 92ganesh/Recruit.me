@@ -24,8 +24,6 @@ public class LoginOTP extends HttpServlet {
 		String email = request.getParameter("email");
 		String receivedOTP = request.getParameter("OTP");
 		System.out.println("LoginOTP: user entered OTP "+receivedOTP);
-		LogManager.logger.info("user entered OTP "+receivedOTP);
-		
 		if(receivedOTP.compareTo("sendOTP")==0)
 		{
 			//generate OTP
@@ -44,18 +42,15 @@ public class LoginOTP extends HttpServlet {
 			SendEmail.send("123tmails@gmail.com", "12345pass",email,"OTP",
 					"Your OTP is "+strOTP+"."); 
 			
-			System.out.println("LoginOTP: sent OTP via mail");
-			LogManager.logger.info("Generated OTP is "+strOTP+". Sent OTP via mail");
+			System.out.println("sent mail");
 		}else {
 			/// get OTP from database and compare
 			String getOTP=databaseConnection.selectOTP("otpdetails",email);
 			if(getOTP.compareTo(receivedOTP)==0)
 			{	System.out.println("LoginOTP: entered OTP is CORRECT");
-				LogManager.logger.info("entered OTP is CORRECT");
 				response.addHeader("OPTstatus","RIGHT");
 			}else {
 				System.out.println("LoginOTP: entered OTP is WRONG");
-				LogManager.logger.info("entered OTP is WRONG");
 				response.addHeader("OPTstatus","WRONG");
 			}
 			
