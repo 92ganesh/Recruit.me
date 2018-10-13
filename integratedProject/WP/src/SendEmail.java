@@ -17,9 +17,10 @@ import javax.activation.FileDataSource;
 
 public class SendEmail{    
 	 public static void main(String[] args) {   
-		   String[] recipients = {"sample@gmail.com"};	// enter valid emails only as it does not check if email exists of not
-		   SendEmail.send("123tmails@gmail.com", "12345pass",	recipients,	"Not so urgent", "text message");  // enter your details
-		   SendEmail.sendWithAttachment("123tmails@gmail.com", "12345pass",	recipients,	"This is subject part", "text message","E:\\interestingImages\\natureSea.jpeg");
+		   String[] recipients = {"tp92ganeshpatra@gmail.com"};	// enter valid emails only as it does not check if email exists of not
+		  // SendEmail.send("123tmails@gmail.com", "12345pass",	recipients,	"Not so urgent", "text message");  // enter your details
+		   SendEmail.sendWithAttachment("123tmails@gmail.com", "12345pass",	recipients,	"This is subject part", "text message",Initializer.path+"scrappedInfo8"+".csv");
+	
 	 }    
 	 
 	 /** details- sends mail using gmail SMTP server and javaMail API 
@@ -116,21 +117,25 @@ public class SendEmail{
 		* filePath  -Directory in which file to be sent is stored
 		*/
 		public static void sendWithAttachment(final String from,final String password,String[] to,String sub,String msg,String filePath)
-		{
-			//Get properties object
-			Properties props = new Properties(); 
-			props.put("mail.smtp.host", "smtp.gmail.com");
-
-			// Here 465 states that SSL encryption will be used. 			
-			props.put("mail.smtp.port", "465");
-			//get Session 
-			Session session = Session.getDefaultInstance(props,new javax.mail.Authenticator() 
-			{
-				protected PasswordAuthentication getPasswordAuthentication() 
-				{
-					return new PasswordAuthentication(from,password);
-				}
-			});
+		{//Get properties object    
+	          Properties props = new Properties();    
+	          props.put("mail.smtp.host", "smtp.gmail.com");    
+	          
+	          // Here 465 states that SSL encryption will be used. But i guess its not working in our case as security detail of received mails shows TLS. 
+	          // May be we need to provide details of SSL. As of now its not a major issue
+	          props.put("mail.smtp.socketFactory.port", "465");    
+	          props.put("mail.smtp.socketFactory.class",    
+	                    "javax.net.ssl.SSLSocketFactory");    
+	          props.put("mail.smtp.auth", "true");    
+	          props.put("mail.smtp.port", "465");    
+	          //get Session   
+	          Session session = Session.getDefaultInstance(props,    
+	            new javax.mail.Authenticator() {    
+	            protected PasswordAuthentication getPasswordAuthentication() {    
+	        	   return new PasswordAuthentication(from,password);  
+	            }    
+	          }
+	          ); 
 				
 				//compose and send message with attachment
 				
@@ -158,7 +163,7 @@ public class SendEmail{
 				messageBodyPart2.setDataHandler(new DataHandler(source));
 				//extract the file name from filePath
 				int beginIndex=filePath.lastIndexOf('/');
-				messageBodyPart2.setFileName(filePath.substring(beginIndex+1,filePath.length()));//The file name can be changed before mailing it
+				messageBodyPart2.setFileName("ExtractedInfo");//The file name can be changed before mailing it
 					   
 					   
 				// create Multipart object and add MimeBodyPart objects to this object      

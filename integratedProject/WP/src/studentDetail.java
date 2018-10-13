@@ -47,7 +47,7 @@ public class studentDetail extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-	    SendEmail.sendWithAttachment("123tmails@gmail.com", "12345pass", email,	"From recruit.Me team", "Summary of your contributions. please see the attached file",("scrappedInfo"+regNo+".csv"));
+	    SendEmail.sendWithAttachment("123tmails@gmail.com", "12345pass", email,	"From recruit.Me team", "Summary of your contributions. please see the attached file",(Initializer.path+"scrappedInfo"+regNo+".csv"));
 	}
 
 }
