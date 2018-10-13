@@ -204,57 +204,6 @@ public class databaseConnection {
 			}
 		}
 	   
-	   
-
-	   
-	   public static int selectCountOfData(String tableName){
-		   //the PK_identifier is the value of the reg_no in the table 'tableName'(identify it by the primary key)
-			try {
-				connect();
-			   PreparedStatement pst=null;
-			   pst=conn.prepareStatement("SELECT COUNT(*) FROM "+tableName+" ;");
-			 
-			   int return_value=0;
-			   ResultSet r=(ResultSet)pst.executeQuery();
-			   while(r.next()){ 
-				   return_value =  r.getInt(1);
-			   }
-			   pst.close();
-				disconnect();
-			   	return return_value;
-		
-			   }catch (SQLException e) {
-			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   return 0;
-			}
-		}
-	   
-
-	   
-	   public static int selectCountOfSelectedCandidates(){
-		   //the PK_identifier is the value of the reg_no in the table 'tableName'(identify it by the primary key)
-			try {
-				connect();
-			   PreparedStatement pst=null;
-			   pst=conn.prepareStatement("select count(*) from candidateDetails where invite_for_next_round='YES' ;");
-			 
-			   int return_value=0;
-			   ResultSet r=(ResultSet)pst.executeQuery();
-			   while(r.next()){ 
-				   return_value =  r.getInt(1);
-			   }
-			   pst.close();
-				disconnect();
-			   	return return_value;
-		
-			   }catch (SQLException e) {
-			   System.out.println("databaseConnection at line "+lineNum()+":"+e.getMessage());
-			   return 0;
-			}
-		}
-	   
-	   
-	   
 	   public static String[] getSelectedCandidates(){
 			connect();
 			try {
@@ -511,7 +460,6 @@ public class databaseConnection {
 		}
 			
 		public static void main(String[] args) {
-			//insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406","JAVA, CPP");
-			System.out.println(" "+selectCountOfSelectedCandidates());
+			insertDataCandidate(561,"Yash Naik","yas23456hna452r3i2k24906@gmail.com","yashnaik2909","YashAndonia","andonia2","yashnaik2406","JAVA, CPP");
 		}
 }

@@ -9,10 +9,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.0_ApacheTomcat/lib/activation.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.0_ApacheTomcat/lib/jaunt1.5.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.0_ApacheTomcat/lib/javax.mail.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.0_ApacheTomcat/lib/postgresql-42.2.4.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 8.0_ApacheTomcat/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="G:/Workspace/RecruiterApp/cloned/Recruiter-app/AllExternalJARs/activation.jar"/>
+	<classpathentry kind="lib" path="G:/Workspace/RecruiterApp/cloned/Recruiter-app/AllExternalJARs/jaunt1.5.jar"/>
+	<classpathentry kind="lib" path="G:/Workspace/RecruiterApp/cloned/Recruiter-app/AllExternalJARs/javax.mail.jar"/>
+	<classpathentry kind="lib" path="G:/Workspace/RecruiterApp/cloned/Recruiter-app/AllExternalJARs/postgresql-42.2.4.jar"/>
+	<classpathentry kind="lib" path="G:/Workspace/RecruiterApp/cloned/Recruiter-app/AllExternalJARs/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
