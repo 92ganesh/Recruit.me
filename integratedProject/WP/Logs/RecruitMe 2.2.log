@@ -1,0 +1,65 @@
+Oct 14, 2018 1:30:50 AM Initializer doGet
+INFO: server started
+Oct 14, 2018 1:31:00 AM LoginOTP doPost
+INFO: user entered OTP sendOTP
+Oct 14, 2018 1:31:01 AM databaseConnection selectOTP
+SEVERE: at line 450:ResultSet not positioned properly, perhaps you need to call next.
+Oct 14, 2018 1:31:05 AM LoginOTP doPost
+INFO: user entered OTP 3525
+Oct 14, 2018 1:31:05 AM LoginOTP doPost
+INFO: entered OTP is WRONG
+Oct 14, 2018 1:31:06 AM LoginOTP doPost
+INFO: Generated OTP is 0112. Sent OTP via mail
+Oct 14, 2018 1:31:21 AM LoginOTP doPost
+INFO: user entered OTP 3525
+Oct 14, 2018 1:31:21 AM LoginOTP doPost
+INFO: entered OTP is WRONG
+Oct 14, 2018 1:31:52 AM LoginOTP doPost
+INFO: user entered OTP 0112
+Oct 14, 2018 1:31:52 AM LoginOTP doPost
+INFO: entered OTP is CORRECT
+Oct 14, 2018 1:32:38 AM databaseConnection insertDataCandidate
+INFO: candidate details inserted in candidatedetails table
+Oct 14, 2018 1:32:50 AM databaseConnection insertDataScraped
+INFO: scrapped details from Codechef
+Oct 14, 2018 1:32:55 AM databaseConnection insertDataScraped
+INFO: scrapped details from Hackerrank
+Oct 14, 2018 1:33:03 AM databaseConnection insertDataScraped
+INFO: scrapped details from Github
+Oct 14, 2018 1:33:03 AM databaseConnection insertDataScraped
+INFO: codechef details inserted into database
+Oct 14, 2018 1:33:03 AM databaseConnection insertDataScraped
+INFO: hackerrank details inserted into database
+Oct 14, 2018 1:33:03 AM databaseConnection insertDataScraped
+INFO: GitHub details inserted into database
+Oct 14, 2018 1:35:08 AM databaseConnection selectPassword
+SEVERE: at line 477:ResultSet not positioned properly, perhaps you need to call next.
+Oct 14, 2018 1:35:44 AM PrintAllCandidateDetails doPost
+INFO: Request received for table candidatedetails
+Oct 14, 2018 1:35:44 AM databaseConnection selectAllData
+INFO: sent requested table to client
+Oct 14, 2018 1:35:56 AM PrintAllCandidateDetails doPost
+INFO: Request received for table github
+Oct 14, 2018 1:35:56 AM databaseConnection selectAllData
+INFO: sent requested table to client
+Oct 14, 2018 1:35:59 AM PrintAllCandidateDetails doPost
+INFO: Request received for table candidatedetails
+Oct 14, 2018 1:35:59 AM databaseConnection selectAllData
+INFO: sent requested table to client
+Oct 14, 2018 1:36:01 AM PrintAllCandidateDetails doPost
+INFO: Request received for table codechef
+Oct 14, 2018 1:36:01 AM databaseConnection selectAllData
+INFO: sent requested table to client
+Oct 14, 2018 1:36:05 AM PrintAllCandidateDetails doPost
+INFO: Request received for table candidatedetails
+Oct 14, 2018 1:36:06 AM databaseConnection selectAllData
+INFO: sent requested table to client
+Oct 14, 2018 1:36:07 AM PrintAllCandidateDetails doPost
+INFO: Request received for table hackerrank
+Oct 14, 2018 1:36:07 AM databaseConnection selectAllData
+INFO: sent requested table to client
+Oct 14, 2018 1:36:09 AM PrintAllCandidateDetails doPost
+INFO: Request received for table candidatedetails
+Oct 14, 2018 1:36:09 AM databaseConnection selectAllData
+INFO: sent requested table to client
+

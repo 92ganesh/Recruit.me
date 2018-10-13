@@ -1,0 +1,13 @@
+Oct 14, 2018 1:26:18 AM Initializer doGet
+INFO: server started
+Oct 14, 2018 1:26:40 AM LoginOTP doPost
+INFO: user entered OTP sendOTP
+Oct 14, 2018 1:26:46 AM LoginOTP doPost
+INFO: Generated OTP is 1505. Sent OTP via mail
+Oct 14, 2018 1:27:06 AM LoginOTP doPost
+INFO: user entered OTP 1505
+Oct 14, 2018 1:27:06 AM LoginOTP doPost
+INFO: entered OTP is CORRECT
+Oct 14, 2018 1:27:48 AM databaseConnection insertDataCandidate
+SEVERE: at line 364:ERROR: duplicate key value violates unique constraint "candidatedetails_cemail_key"
+  Detail: Key (cemail)=(tp92ganeshpatra@gmail.com) already exists.

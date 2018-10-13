@@ -1,0 +1,20 @@
+Oct 14, 2018 1:30:50 AM Initializer doGet
+INFO: server started
+Oct 14, 2018 1:31:00 AM LoginOTP doPost
+INFO: user entered OTP sendOTP
+Oct 14, 2018 1:31:01 AM databaseConnection selectOTP
+SEVERE: at line 450:ResultSet not positioned properly, perhaps you need to call next.
+Oct 14, 2018 1:31:05 AM LoginOTP doPost
+INFO: user entered OTP 3525
+Oct 14, 2018 1:31:05 AM LoginOTP doPost
+INFO: entered OTP is WRONG
+Oct 14, 2018 1:31:06 AM LoginOTP doPost
+INFO: Generated OTP is 0112. Sent OTP via mail
+Oct 14, 2018 1:31:21 AM LoginOTP doPost
+INFO: user entered OTP 3525
+Oct 14, 2018 1:31:21 AM LoginOTP doPost
+INFO: entered OTP is WRONG
+Oct 14, 2018 1:31:52 AM LoginOTP doPost
+INFO: user entered OTP 0112
+Oct 14, 2018 1:31:52 AM LoginOTP doPost
+INFO: entered OTP is CORRECT

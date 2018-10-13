@@ -19,6 +19,8 @@ public class PrintAllCandidateDetails extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tableName = request.getParameter("tableName");
+		LogManager.logger.info("Request received for table "+tableName);
+		
 		if(tableName.equals("candidatedetails"))
 		{	String htmlTable  = "",tableHeader = "";
 			htmlTable+=tableHeader;

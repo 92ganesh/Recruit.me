@@ -1,0 +1,16 @@
+Oct 14, 2018 1:30:50 AM Initializer doGet
+INFO: server started
+Oct 14, 2018 1:32:38 AM databaseConnection insertDataCandidate
+INFO: candidate details inserted in candidatedetails table
+Oct 14, 2018 1:32:50 AM databaseConnection insertDataScraped
+INFO: scrapped details from Codechef
+Oct 14, 2018 1:32:55 AM databaseConnection insertDataScraped
+INFO: scrapped details from Hackerrank
+Oct 14, 2018 1:33:03 AM databaseConnection insertDataScraped
+INFO: scrapped details from Github
+Oct 14, 2018 1:33:03 AM databaseConnection insertDataScraped
+INFO: codechef details inserted into database
+Oct 14, 2018 1:33:03 AM databaseConnection insertDataScraped
+INFO: hackerrank details inserted into database
+Oct 14, 2018 1:33:03 AM databaseConnection insertDataScraped
+INFO: GitHub details inserted into database
