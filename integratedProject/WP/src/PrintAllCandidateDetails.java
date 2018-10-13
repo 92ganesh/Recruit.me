@@ -43,18 +43,6 @@ public class PrintAllCandidateDetails extends HttpServlet {
 			htmlTable+= databaseConnection.selectAllData("github");
 			response.addHeader("candidateDetailsTable",htmlTable);
 		}
-		else if(tableName.equals("countOfCandidateDetails"))
-		{	String htmlTable  = "",tableHeader = "";
-		htmlTable+=tableHeader;
-		htmlTable+= Integer.toString(databaseConnection.selectCountOfData("candidatedetails"));
-		response.addHeader("candidateDetailsTable",htmlTable);
-	}
-		else if(tableName.equals("countOfSelectedCandidates"))
-		{	String htmlTable  = "",tableHeader = "";
-		htmlTable+=tableHeader;
-		htmlTable+= Integer.toString(databaseConnection.selectCountOfSelectedCandidates());
-		response.addHeader("candidateDetailsTable",htmlTable);
-	}
 	}
 }
 
