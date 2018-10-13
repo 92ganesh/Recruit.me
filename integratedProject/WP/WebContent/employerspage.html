@@ -17,21 +17,21 @@
 			$(document).ready(function () {
 			// Open in new window
 			$(".container1").click(function () {
-				window.open(".html", "_blank");
+				window.open("employerscandidate.html", "_blank");
 			});
 			$(".container2").click(function () {
-				window.open(".html", "_blank");
+				window.open("employerscandidate.html", "_blank");
 			});
 			$(".container3").click(function () {
-				window.open(".html", "_blank");
+				window.open("employerscandidate.html", "_blank");
 			});
 			});
 		</script>	
 	</head>
 	
-	<body>
+	<body onload=" numberOfApplicants();numberOfSelectedApplicants();">
 	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
-				<h1 style="font-size:50px; font-family:Berkshire Swash">Recruit.me</h1>
+				<h1 style="font-size:50px; font-family:Berkshire Swash"><a href="home.html" style="color:black;">Recruit.me</a></h1>
 				<div class="tab">
 					<button><a href="home.html">Home</a> </button>
 			<button><a href="employerspage.html">Recruiting Panel</a> </button>
@@ -40,11 +40,11 @@
 				</div>
 						
 				<div class="container1">
-					<p align="center" >
-						No.of applicants applied
+					<p align="center" id="whichTable">
+						No. of applicants applied
 					</p>
 					<br>
-					<p align="center" class="a">
+					<p align="center" class="a" id="numberOfApplied">
 						150
 					</p>
 				</div>
@@ -52,7 +52,7 @@
 				<div class="container2">
 					<p align="center">No.of applications Reviewed</p>
 					<br>
-					<p align="center" class="a">
+					<p align="center" class="a" id="numberOfSelected">
 						80
 					</p>
 				</div>
@@ -60,7 +60,7 @@
 				<div class="container3">
 					<p align="center">Number of vacancy left</p>
 					<br>
-					<p align="center" class="a">
+					<p align="center" class="a"id="totalNumberOfPositions">
 						50
 					</p>
 				</div>
@@ -70,15 +70,15 @@
 					</p>
 					<br>
 					<p align="center">
-						Round 1:20/08/2018
+						Round 1:20/12/2018
 					</p>
 					<br>
 					<p align="center">
-						Round 2:22/08/2018
+						Round 2:22/12/2018
 					</p>
 					<br>
 					<p align="center">
-						Round 3:24/08/2018
+						Round 3:24/12/2018
 					</p>
 					<br>
 					<p align="center">
@@ -86,10 +86,55 @@
 					</p>
 					<br>
 					<p align="center">
-						Deadline for interview:02/09/2018
+						Deadline for interview:02/01/2019
 					</p>
 					<br>
 				</div>
 	</body>
 
+
+<script>
+function numberOfApplicants(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+    	  var content="";
+	      content += this.getResponseHeader("candidateDetailsTable");
+		  document.getElementById("numberOfApplied").innerHTML = content;
+      }
+  	};
+    xhttp.open("POST", "PrintAllCandidateDetails", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    
+    var sending = "";
+    	sending="tableName=countOfCandidateDetails";
+    
+	xhttp.send(sending);
+}
+
+function numberOfSelectedApplicants(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+    	  var content="";
+	      content += this.getResponseHeader("candidateDetailsTable");
+		  document.getElementById("numberOfSelected").innerHTML = content;
+		  var total= document.getElementById("totalNumberOfPositions").innerHTML;
+		  var remaining=parseInt(total)-parseInt(content);
+		  document.getElementById("totalNumberOfPositions").innerHTML=remaining;
+      }
+  	};
+    xhttp.open("POST", "PrintAllCandidateDetails", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    
+    var sending = "";
+    	sending="tableName=countOfSelectedCandidates";
+    
+	xhttp.send(sending);
+}
+
+
+
+
+</script>
 </html>
