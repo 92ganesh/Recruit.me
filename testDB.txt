@@ -66,7 +66,7 @@ alter table codechef add constraint connec3 foreign key(reg_no) references candi
 
 /*optional fake data for testing purposes only*/
 /*
-insert into candidatedetails values(1,'Ganesh','tp92ganeshpatra@gmail.com','ganesh-patra','92ganesh','ganesh92','92ganesh','JAVA, PERL');
+insert into candidatedetails values(1,'Vivek','123tmails@gmail.com','Vivek123','Vivek123','Vivek123','Vivek123','JAVA, PERL');
 insert into candidatedetails values(2,'Yash','yashnaik2406@gmail.com','yashnaik2909','YashAndonia','andonia2','yashnaik2406','CPP, PYTHON');
 insert into candidatedetails values(3,'Shubham','shubhammuniyal@gmail.com','shubham-muniyal-573285162','shubham12345678901','shubham_hi5','shubhammuniyal','C, PHP');
 insert into candidatedetails values(4,'Karan','prajapati.kn@somaiya.edu','karanBose','prajapati-kn','karanBose','prajapati_kn','HTML, JAVASCRIPT');

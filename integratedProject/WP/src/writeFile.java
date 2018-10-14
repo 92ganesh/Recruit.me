@@ -50,7 +50,6 @@ public class writeFile
                 sb.append(Integer.toString(global_rank_c)+',');   
                 sb.append(Integer.toString(country_rank_c)+',');
                 sb.append('\n');
-                System.out.println("done!");    
             }
 		
             //for hackkerank account
@@ -75,7 +74,6 @@ public class writeFile
                 sb.append(Integer.toString(stars_h));
                 sb.append(','+Integer.toString(gold_h)+','+Integer.toString(silver_h)+','+Integer.toString(bronze_h));
                 sb.append('\n');
-                System.out.println("done!");    
             }
             
             //for Github account
@@ -100,7 +98,6 @@ public class writeFile
                sb.append(Integer.toString(repositries_g));
                sb.append(','+Integer.toString(stars_g)+','+Integer.toString(followers_g)+','+Integer.toString(following_g));
                sb.append('\n');               
-               System.out.println("done!");    
            }
             //close the FileWriter object and the connection 
             sb.close();

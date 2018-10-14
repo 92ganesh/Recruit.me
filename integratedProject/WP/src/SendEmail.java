@@ -17,8 +17,8 @@ import javax.activation.FileDataSource;
 
 public class SendEmail{    
 	 public static void main(String[] args) {   
-		   String[] recipients = {"tp92ganeshpatra@gmail.com"};	// enter valid emails only as it does not check if email exists of not
-		  // SendEmail.send("123tmails@gmail.com", "12345pass",	recipients,	"Not so urgent", "text message");  // enter your details
+		   String[] recipients = {"sample@gmail.com"};	// enter valid emails only as it does not check if email exists of not
+		   SendEmail.send("123tmails@gmail.com", "12345pass",	recipients,	"Not so urgent", "text message");  // enter your details
 		   SendEmail.sendWithAttachment("123tmails@gmail.com", "12345pass",	recipients,	"This is subject part", "text message",Initializer.path+"scrappedInfo8"+".csv");
 	
 	 }    
@@ -163,7 +163,7 @@ public class SendEmail{
 				messageBodyPart2.setDataHandler(new DataHandler(source));
 				//extract the file name from filePath
 				int beginIndex=filePath.lastIndexOf('/');
-				messageBodyPart2.setFileName("ExtractedInfo");//The file name can be changed before mailing it
+				messageBodyPart2.setFileName("ExtractedInfo.csv");//The file name can be changed before mailing it
 					   
 					   
 				// create Multipart object and add MimeBodyPart objects to this object      
@@ -175,7 +175,7 @@ public class SendEmail{
 				messenger.setContent(multipart );  
 			  	  	
 			  	Transport.send(messenger);
-			  	System.out.println("mail sent successfully to:- ");
+			  	System.out.println("mail with gathered data is sent successfully to:- ");
 			  	for(String each:to)
 					System.out.println(each);
 			} 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Initializer")
 public class Initializer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static String path = "G:\\Warehouse\\eclipseWorkspace\\WP\\";
+	public static String path = "D:\\";
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
