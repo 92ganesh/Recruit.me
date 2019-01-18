@@ -34,5 +34,5 @@ All dependencies are available in folder called **AllExternalJARS**
 4. Run the project as server in eclipse
 5. Access the website on localhost
 
-##DEMO
+## DEMO
 To watch complete video on youtube click [Here](https://www.youtube.com/watch?v=8xoCqm1-tL4&t=112s "Here")
