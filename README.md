@@ -28,7 +28,7 @@ All dependencies are available in folder called **AllExternalJARS**
 
 ## How to run
 1.  Open folder **WP** in folder called **IntegretedProject** in Eclipse.
-2. Import dependencies from folder called **AllExternalJARS**. 
+2. Import dependencies from folder called **AllExternalJARS**. <br>
 **Note:-** Jaunt expires every month and needs to be updated. Download latest jar from  [Here](http://jaunt-api.com/download.htm "here").
 3. Execute the SQL script in **testDB.txt** in postgres
 4. Run the project as server in eclipse
