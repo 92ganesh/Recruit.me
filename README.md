@@ -1,6 +1,6 @@
 # Recruit.me
 Our project is built to serve the purpose of developing a recruiter web App in which he issue a form. The form asks information from student about user details of competitive programming sites (like
-[codechef](https://www.codechef.com)) or development platform (like [github](https://github.com/)). After successful submission of the form, the user's performance and contribution on those sites will be extracted. This information will be
+[codechef](https://www.codechef.com), [hackerrank](https://www.hackerrank.com/)) or development platform (like [github](https://github.com/)). After successful submission of the form, the user's performance and contribution on those sites will be extracted. This information will be
 represented on a file. The web App is particularly designed for students and Interviewers.
 
 ## Key Features
