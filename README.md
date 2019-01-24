@@ -1,6 +1,6 @@
 # Recruit.me
 Our project is built to serve the purpose of developing a recruiter web App in which he issue a form. The form asks information from student about user details of competitive programming sites (like
-Codeshef.com) or development platform (like github.com). After successful submission of the form, the user's performance and contribution on those sites will be extracted. This information will be
+Codechef.com) or development platform (like github.com). After successful submission of the form, the user's performance and contribution on those sites will be extracted. This information will be
 represented on a file. The web App is particularly designed for students and Interviewers.
 
 ## Key Features
@@ -13,7 +13,7 @@ represented on a file. The web App is particularly designed for students and Int
 ## Tech Stack
 - Servlet
 - Java JDK 9 for server-side management
-- Apache 8.0
+- Apache Tomcat 8.0
 - Postgres 9.4 as database
 - HTML, CSS, Bootstrap for frontend UI
 - JavaScript for client side scripting
