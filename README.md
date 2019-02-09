@@ -46,4 +46,4 @@ All dependencies are available in folder called **AllExternalJARS**
 5. Access the website on localhost
 
 ## DEMO
-To watch complete video on youtube click [Here](https://www.youtube.com/watch?v=8xoCqm1-tL4&t=112s "Here")
+To watch complete the video on youtube click [Here](https://www.youtube.com/watch?v=8xoCqm1-tL4&t=112s "Here")
