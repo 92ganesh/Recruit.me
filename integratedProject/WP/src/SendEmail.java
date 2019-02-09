@@ -163,7 +163,7 @@ public class SendEmail{
 				messageBodyPart2.setDataHandler(new DataHandler(source));
 				//extract the file name from filePath
 				int beginIndex=filePath.lastIndexOf('/');
-				messageBodyPart2.setFileName("ExtractedInfo");//The file name can be changed before mailing it
+				messageBodyPart2.setFileName("ExtractedInfo.csv");//The file name can be changed before mailing it
 					   
 					   
 				// create Multipart object and add MimeBodyPart objects to this object      
@@ -175,7 +175,7 @@ public class SendEmail{
 				messenger.setContent(multipart );  
 			  	  	
 			  	Transport.send(messenger);
-			  	System.out.println("mail sent successfully to:- ");
+			  	System.out.println("mail with gathered data is sent successfully to:- ");
 			  	for(String each:to)
 					System.out.println(each);
 			} 
