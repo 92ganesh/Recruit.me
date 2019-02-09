@@ -3,6 +3,17 @@ Our project is built to serve the purpose of simplifying and enchancing recruitm
 [codechef](https://www.codechef.com), [hackerrank](https://www.hackerrank.com/)) or development platform (like [github](https://github.com/)). After successful submission of the form, the user's performance and contribution on those sites will be extracted. This information will be
 represented in a csv file. The web App is  designed for students and Interviewers.
 
+<h3 align="center"><b> Homepage </b></h3> 
+<p align="center">
+  <img alt="Homepage" src="https://github.com/92ganesh/Recruit.me/blob/master/home%20page.gif">
+</p>
+
+<h3 align="center"><b> Application Form </b></h3>
+<p align="center">
+  <img alt="Application Form" src="https://github.com/92ganesh/Recruit.me/blob/master/student%20form.gif">
+</p>
+
+
 ## Key Features
 - Auto scraping of data from sites like codechef, hackerrank, github
 - Send scraped info of applicants back to them as csv file via email
@@ -35,4 +46,4 @@ All dependencies are available in folder called **AllExternalJARS**
 5. Access the website on localhost
 
 ## DEMO
-To watch complete video on youtube click [Here](https://www.youtube.com/watch?v=8xoCqm1-tL4&t=112s "Here")
+To watch complete the video on youtube click [Here](https://www.youtube.com/watch?v=8xoCqm1-tL4&t=112s "Here")
